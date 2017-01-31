@@ -11,7 +11,9 @@
 
         <div class="col-sm-9 padding-right">
           <%#= render '/components/features_items'%>
-          <%= render partial:'/components/category_tab', locals:{navigation_list: @category.subcategories}%>
+          <% if @category.present? %>
+            <%= render partial:'/components/category_tab', locals:{navigation_list: @category.subcategories}%>
+          <% end %>
           <%= render '/components/recommended_items'%>
         </div>
       </div>
