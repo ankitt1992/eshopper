@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <%= render '/components/left_sidebar'%>
+      </div>
+
+      <div class="col-sm-9 padding-right">
+        <%#= render '/components/features_items'%>
+        <%= render partial:'/components/brand_category_tab', locals:{navigation_list: @brand.categories.where('parent_id is not null')}%>
+        <%= render '/components/recommended_items'%>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<%#= link_to 'Edit', edit_brand_path(@brand) %> |
+<%# = link_to 'Back', brands_path %>
+ -->

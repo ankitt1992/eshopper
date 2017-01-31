@@ -1,0 +1,21 @@
+
+  
+  <%= render '/components/slider'%>
+  
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3">
+          <%= render '/components/left_sidebar'%>
+        </div>
+
+        <div class="col-sm-9 padding-right">
+          <%#= render '/components/features_items'%>
+          <%= render partial:'/components/category_tab', locals:{navigation_list: @category.subcategories}%>
+          <%= render '/components/recommended_items'%>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  

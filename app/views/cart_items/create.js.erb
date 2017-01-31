@@ -1,0 +1,2 @@
+$('#product-cart-status-'+<%=@product.id%>).html("<%= escape_javascript render(:partial => '/cart_items/product_cart_status', :locals => { product: @product }) %>")
+$('#cart_counts').html('('+<%= @cart_items.count%>+')')

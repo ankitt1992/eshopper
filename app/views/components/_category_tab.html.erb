@@ -1,0 +1,54 @@
+<div class="category-tab"><!--category-tab-->
+  <div class="col-sm-12">
+    <ul class="nav nav-tabs">
+    <%if @category.present? %>
+    <% navigation_list.each do |s|%>
+      <%s.name.gsub!(/:.+:/,'')%>
+    <% end %>
+      <% navigation_list.order('name ASC').where(status: true).each_with_index do |subcategory, i|%>
+        <li class= <%= 'active' if params[:subcategory_id].to_s == subcategory.id.to_s %> >
+          <%= link_to subcategory.name.gsub(/:.+:/,''), category_path(id: @category.id, subcategory_id: subcategory.id)%>
+        </li>
+      <% end %>
+    <% end %>
+    </ul>
+  </div>
+
+  <div class="">
+  <%if @category.present? %>
+    <%# navigation_list.each_with_index do |subcategory, i|%>
+      <div class="" >
+        <% if @products.present? %>
+          <%# @products.each_slice(4) do |slice|%>
+            <% @products.each do |product|%>
+              <div class="col-sm-3">
+                <div class="product-image-wrapper product_style">
+                  <div class="single-products">
+                    <div class="productinfo text-center">
+                      <%= link_to product_path(product) do %>
+                        <%if product.pictures.present?%>
+                          <%= image_tag product.pictures.first.image.url, width:'184px', height:'245px'%>
+                        <% end %>
+                          <h2>&#8377; <%= product.price%></h2>
+                          <p class="product_name_height"><%= product.name%></p>
+                      <% end %>
+                      
+                      <div id="product-cart-status-<%= product.id%>">
+                        <%= render partial:'/cart_items/product_cart_status', locals:{product: product}%>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <%# end %> 
+        <% else %>
+          <div>
+            <h2><center>Product not available</center></h2>
+          </div>
+        <% end %>
+      </div>
+    <%# end %>
+  <% end %>
+  </div>
+</div><!--/category-tab-->

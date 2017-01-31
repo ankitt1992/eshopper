@@ -1,0 +1,157 @@
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li class="active">Shopping Cart</li>
+      </ol>
+    </div>
+
+    <div class="table-responsive cart_info">
+      <table class="table table-condensed">
+        <col width="13%">
+        <col width="25%">
+        <col width="10%">
+        <col width="32%">
+        <col width="12%">
+        <col width="8%">
+        <% if @cart_items.size == 0 %>
+          <p class="text-center">
+            There are no items in your shopping cart.  Please <%= link_to "go back", root_path %> and add some items to your cart.
+          </p>
+        <% else %>
+          <thead>
+            <tr class="cart_menu">
+              <td class="image">Item</td>
+              <td class="description"></td>
+              <td class="price">Price</td>
+              <td class="quantity">Quantity</td>
+              <td class="total">Total</td>
+              <td></td>
+            </tr>
+          </thead>
+        
+          <tbody>
+            <% @cart_items.each do |cart_item|%>
+              <tr>
+                <td class="cart_product">
+                  <%= image_tag cart_item.product.pictures.first.image.url, width:'100px', height:'100px'%>
+                </td>
+                <td class="cart_description ">
+                  <h5 class=""><%=link_to cart_item.product.name%></h5>
+                </td>
+                <td class="cart_price">
+                  <p>&#8377;<%=cart_item.product.price%></p>
+
+                </td>
+                <td class="cart_quantity">
+                  <div class="cart_quantity_button">
+                  <%= form_for cart_item  do |f|%>
+                    <%= number_field_tag :quantity, cart_item.quantity.to_i, class: "cart_quantity_input", size: 5, min: 1, max: "#{cart_item.product.quantity}" %>
+                    <%= f.submit "Update changes", class: "btn btn-default add-to-cart" %>
+                  <% end %>
+                  </div>
+                </td>
+                <td class="cart_total">
+                  <%a =cart_item.product.price%>
+                  <%b = cart_item.quantity.to_i %>
+                  <p class="cart_total_price">&#8377;<%= cart_item.total%></p>
+                </td>
+                <td class="cart_delete">
+                  <%= link_to cart_item, { data: { confirm: "Are you sure you wish to delete the product '#{cart_item.product.name}' from your cart?" }, method: :delete, class: "cart_quantity_delete" } do %>
+                    <i class="fa fa-times"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+                <!-- <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td align="center" class="cart_price"><b>Total</b></td>
+                  <td><b><p class="cart_total_price">&#8377;<%= @cart_items_total %></p></b></td>
+                </tr> -->
+            <% end %>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</section> <!--/#cart_items-->
+
+<section id="do_action">
+  <div class="container">
+    <div class="heading">
+      <h3>What would you like to do next?</h3>
+      <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="chose_area">
+          <ul class="user_option">
+            <li>
+              <input type="checkbox">
+              <label>Use Coupon Code</label>
+            </li>
+            <li>
+              <input type="checkbox">
+              <label>Use Gift Voucher</label>
+            </li>
+            <li>
+              <input type="checkbox">
+              <label>Estimate Shipping & Taxes</label>
+            </li>
+          </ul>
+          <ul class="user_info">
+            <li class="single_field">
+              <label>Country:</label>
+              <select>
+                <option>United States</option>
+                <option>Bangladesh</option>
+                <option>UK</option>
+                <option>India</option>
+                <option>Pakistan</option>
+                <option>Ucrane</option>
+                <option>Canada</option>
+                <option>Dubai</option>
+              </select>
+              
+            </li>
+            <li class="single_field">
+              <label>Region / State:</label>
+              <select>
+                <option>Select</option>
+                <option>Dhaka</option>
+                <option>London</option>
+                <option>Dillih</option>
+                <option>Lahore</option>
+                <option>Alaska</option>
+                <option>Canada</option>
+                <option>Dubai</option>
+              </select>
+            
+            </li>
+            <li class="single_field zip-field">
+              <label>Zip Code:</label>
+              <input type="text">
+            </li>
+          </ul>
+          <a class="btn btn-default update" href="">Get Quotes</a>
+          <a class="btn btn-default check_out" href="">Continue</a>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="total_area">
+          <ul>
+            <li>Cart Sub Total <span>&#8377; <%= @cart_items_total %></span></li>
+            <li>VAT<span>&#8377; <%= @vat %></span></li>
+            <li>Shipping Cost <span>Free</span></li>
+            <li>Total <span>&#8377; <%= @grand_total %></span></li>
+          </ul>
+            <%= link_to 'Update', '#', class: "btn btn-default update" %>
+            <%= link_to 'Check Out', '#', class: "btn btn-default check_out" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!--/#do_action-->
+

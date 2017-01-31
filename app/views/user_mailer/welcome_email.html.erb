@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Welcome to Eshopper, <%= @user.first_name %></h1>
+    <p>
+      <b>Name:</b> <%=@user.first_name%> <%= @user.last_name%><br>
+      <b>Email-Id:</b> <%=@user.email%><br>
+    </p><br>
+    <p>
+      To login to the site, just follow this link: http://localhost:3000/users/sign_in
+    </p>
+
+
+<p>Hello there, this is our logo</p>
+ 
+<%= image_tag attachments['logo.png'].url, alt: 'Eshopper logo', class: 'logo' %>
+
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

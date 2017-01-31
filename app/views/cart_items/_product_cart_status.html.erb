@@ -1,0 +1,19 @@
+<% if @cart_items.present? && @cart_items.pluck('product_id').include?(product.id) %>
+  <div class="go_to_cart">
+    <%= link_to cart_items_path, class: "btn btn-default bg-orange go-to-cart" do %>
+      <i class="fa fa-shopping-cart"> Go to cart</i>
+    <% end %>
+  </div>
+<% else %>
+  <div class="add_to_cart">
+    <%= form_for @cart_item, remote: true do |f|%>
+      <div class="input-group-btn">
+        <%= f.hidden_field :product_id, value: product.id %>
+        <%= f.hidden_field :quantity, value: 1 %>
+        <%= f.submit 'Add to cart', class: "btn btn-default add-to-cart" do %>
+          <i class="fa fa-shopping-cart"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
