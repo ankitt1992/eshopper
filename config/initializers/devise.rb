@@ -5,6 +5,7 @@ Devise.setup do |config|
   config.omniauth :facebook, "401824820156464", "be37fb53bbe85a21a3ea17758ba6df28"
   config.omniauth :google_oauth2, "674406028799-fprufc6rjthjujjd5dgdp3sjutm1q8dg.apps.googleusercontent.com", "-ozcscab3m8pxM4MBzKDLf6p", { }
   config.omniauth :twitter, "ZqcajBK5k2QXWvCiVKFXrvcxx", "7eMZpF4vuuSxDak5IpMvOevKyAmNk8Cmxp1Eti7YLnufVsC7aB"
+  config.secret_key = '3251ec8c8bc7021b5e5c017cd1d25161c66c24d54e75ba61ea9fff455044b77cddb54b0e243fc52fd296f10dfa09b031aa6555b53dcf972c60848b7fabb1c972'
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.

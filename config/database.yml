@@ -27,6 +27,6 @@ test:
 production:
   <<: *default
   # adapter: postgresql
-  database: eshopper_production
+  database: eshopper_development
 
 ########### sqlite end #######
