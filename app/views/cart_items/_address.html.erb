@@ -1,0 +1,22 @@
+<!-- <div class="bill-to">
+  <div class="form-one form-two"> -->
+    <div class="form">
+    <% address_type ||= 'bill_to' %>
+
+  <%#= form_for @address, :html => { :id => "#{address_type}" } do |f| %>
+    <%= f.email_field :email, placeholder: 'Email*', name: "address[#{address_type}][email]", id: "#{address_type}_email" %>
+    <%= f.text_field :first_name, placeholder: "First Name *", name: "address[#{address_type}][first_name]", id: "#{address_type}_first_name" %>
+    <%= f.text_field :last_name, placeholder: "Last Name *", name: "address[#{address_type}][last_name]", id: "#{address_type}_last_name" %>
+    <%= f.text_field :address1, placeholder: "Address1 *", name: "address[#{address_type}][address1]", id: "#{address_type}_address1" %>
+    <%= f.text_field :address2, placeholder: "Address2 *", name: "address[#{address_type}][address2]", id: "#{address_type}_address2" %>
+    <%= f.text_field :postal_code, placeholder: "Zip / Postal_code" , name: "address[#{address_type}][postal_code]" , id: "#{address_type}_postal_code"%>
+    <% @country_list= ['India','Afghanistan','Bangladesh','Sri Lanka']%>
+    <%#= f.options_for_select(["Free", "Basic", "Advanced", "Super Platinum"] %>
+    <%= f.select :country, @country_list.collect{|p| [p]}, {:prompt => "Choose Country"}, include_blank: true, name: "address[#{address_type}][country]" , id: "#{address_type}_country" %>
+    <%= f.text_field :state, placeholder: "State / Province / Region", name: "address[#{address_type}][state]", id: "#{address_type}_state" %>
+    <%= f.text_field :mobile_no, placeholder: "Mobile Number", name: "address[#{address_type}][mobile_no]", id: "#{address_type}_email" %>
+    <%= f.hidden_field :address_type, value: "#{address_type}" , name: "address[#{address_type}][address_type]" , id: "#{address_type}_address_type"%>
+<%# end %>
+    </div>
+  <!-- </div>
+</div> -->

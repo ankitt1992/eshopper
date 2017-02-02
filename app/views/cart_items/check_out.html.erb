@@ -1,0 +1,96 @@
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li class="active">Check out</li>
+      </ol>
+    </div>
+
+    <div class="step-one">
+        <h2 class="heading">Step1</h2>
+    </div>
+      
+    <div class="checkout-options">
+      <h3>New User</h3>
+      <p>Checkout options</p>
+      <ul class="nav">
+        <li>
+          <label><input type="checkbox"> Register Account</label>
+        </li>
+        <li>
+          <label><input type="checkbox"> Guest Checkout</label>
+        </li>
+        <li>
+          <a href=""><i class="fa fa-times"></i>Cancel</a>
+        </li>
+      </ul>
+      </div><!--/checkout-options-->
+
+      <div class="register-req">
+        <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
+      </div><!--/register-req-->
+
+    <div class="shopper-informations">
+      <div class="row">
+        <%= form_for @address, :html => { :id => "address_fields" } do |f| %>
+          <div class="col-sm-5">
+            <div class="bill-to">
+              <div class="form-one form-two">
+                <p>Bill To</p>
+                <%= render 'address', f: f %>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-5 clearfix">
+            <div class="bill-to">
+              <div class="form-one form-two">
+                <p>Ship To</p>
+                <%= render 'address', f: f, address_type: 'ship_to' %>
+                <label><%=check_box_tag 'checkbox' %>Shipping to bill address</label>
+              </div>
+            </div>
+          </div>         
+        <% end %>
+      </div>
+    </div>
+
+    <div class="review-payment">
+        <h2>Review & Payment</h2>
+    </div>
+
+    <div class="table-responsive cart_info" >
+      <%= render partial: 'cart_items_detail'%>
+    </div>
+    <input type="button" value="Continue" class="btn btn-primary", onclick="submitForms()" />
+    <%#= button_tag type: "submit", class: "btn btn-primary" do %>
+        <!-- Continue -->
+      <%# end %>
+    <%#= button_to "continue" '', {class: 'btn btn-primary'} %>
+  </div>
+</section> <!--/#cart_items-->
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-sm-6">
+  <div class="bill-to">
+    <p>Bill To</p>
+    <%#= render partial: 'address'%>
+  </div>
+</div>
+<div class="col-sm-6">
+  <div class="bill-to">
+    <p>Ship To</p>
+    <%#= render partial: 'address'%>
+  </div>
+</div>
+<div class="clearfix">
+  <%#= render partial: 'cart_items_detail'%>
+</div> -->

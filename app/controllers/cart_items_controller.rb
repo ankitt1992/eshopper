@@ -1,20 +1,10 @@
 class CartItemsController < ApplicationController
   before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart_item_detail, only: [:index, :check_out]
   before_action :authenticate_user!
   # GET /cart_items
   # GET /cart_items.json
   def index
-    @cart_items = current_user.cart_items.all
-    @cart_items_total = current_user.cart_items.sum(:total)
-    @vat = 0.04 * @cart_items_total
-    if @cart_items_total < 500
-      @shipping_cost = 40.to_f
-      @grand_total = @cart_items_total + @vat + @shipping_cost
-    else
-      @shipping_cost = 'Free'
-      @grand_total = @cart_items_total + @vat
-    end
-    @cart_item = CartItem.new
   end
 
   # GET /cart_items/1
@@ -101,6 +91,10 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def check_out
+    @address= Address.new
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart_item
@@ -114,5 +108,19 @@ class CartItemsController < ApplicationController
 
     def cart_update_params
       params.permit(:quantity, :product_id)
+    end
+
+    def set_cart_item_detail
+      @cart_items = current_user.cart_items
+      @cart_items_total = current_user.cart_items.sum(:total)
+      @vat = 0.04 * @cart_items_total
+      if @cart_items_total < 500
+        @shipping_cost = 40.to_f
+        @grand_total = @cart_items_total + @vat + @shipping_cost
+      else
+        @shipping_cost = 'Free'
+        @grand_total = @cart_items_total + @vat
+      end
+      @cart_item = CartItem.new
     end
 end

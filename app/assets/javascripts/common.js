@@ -24,7 +24,16 @@ $(document).ready(function(){
 //   $(".alert-danger" ).fadeOut(5000)
 // });
 
-
+$(document).ready(function(){
+  $("#checkbox").click(function(){
+    if($(this).is(':checked')){
+      var email = $("#bill_to_email").val();
+      $("#ship_to_email").val(email);
+    }else{
+      $("#ship_to_email").val("");
+    }
+  });
+});
 
 
 // function show_brand(id){
@@ -61,3 +70,6 @@ $(document).ready(function(){
 // });
 
 
+submitForms = function(){
+  document.getElementById("address_fields").submit();
+}

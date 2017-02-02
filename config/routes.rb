@@ -14,9 +14,10 @@ Rails.application.routes.draw do
   # resources :brands, only: [:show] 
   resources :products, only: [:show]
   resources :cart_items
+  resources :addresses
   # resource :cart, only: [:show]
   # resources :order_items, only: [:create, :update, :destroy]
-
+  get '/check_outs', to: 'cart_items#check_out'
   root 'home#index'
 
 

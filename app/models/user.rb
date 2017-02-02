@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
   has_many :cart_items
+  has_many :addresses
 
   # after_create :send_admin_mail
   
