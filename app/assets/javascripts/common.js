@@ -28,12 +28,40 @@ $(document).ready(function(){
   $("#checkbox").click(function(){
     if($(this).is(':checked')){
       var email = $("#bill_to_email").val();
+      var first_name = $("#bill_to_first_name").val();
+      var last_name = $("#bill_to_last_name").val();
+      var address1 = $("#bill_to_address1").val();
+      var address2 = $("#bill_to_address2").val();
+      var postal_code = $("#bill_to_postal_code").val();
+      var country = $("#bill_to_country").val();
+      var state = $("#bill_to_state").val();
+      var mobile_no = $("#bill_to_mobile_no").val();
       $("#ship_to_email").val(email);
+      $("#ship_to_first_name").val(first_name);
+      $("#ship_to_last_name").val(last_name);
+      $("#ship_to_address1").val(address1);
+      $("#ship_to_address2").val(address2);
+      $("#ship_to_postal_code").val(postal_code);
+      $("#ship_to_country").val(country);
+      $("#ship_to_state").val(state);
+      $("#ship_to_mobile_no").val(mobile_no);
+      $('.ship_to_form :input').attr("disabled", true);
     }else{
       $("#ship_to_email").val("");
+      $("#ship_to_first_name").val("");
+      $("#ship_to_last_name").val("");
+      $("#ship_to_address1").val("");
+      $("#ship_to_address2").val("");
+      $("#ship_to_postal_code").val("");
+      $("#ship_to_country").val("");
+      $("#ship_to_state").val("");
+      $("#ship_to_mobile_no").val("");
+      $('.ship_to_form').show();
+      $('.ship_to_form :input').attr("disabled", false);
     }
   });
 });
+
 
 
 // function show_brand(id){
