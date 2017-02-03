@@ -25,7 +25,7 @@ $(document).ready(function(){
 // });
 
 $(document).ready(function(){
-  $("#checkbox").click(function(){
+  $(document ).on( "click", "#checkbox", function() {
     if($(this).is(':checked')){
       var email = $("#bill_to_email").val();
       var first_name = $("#bill_to_first_name").val();

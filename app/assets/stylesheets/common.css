@@ -109,7 +109,16 @@
   text-decoration-color: #FE980F;*/
 }
 
+.address_exist{
+  line-height: 15px;
+  width: 20%;
+  margin: 0px 0px 10px 25px;
+}
 
+.centerize { 
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 /*.social-share-button-facebook {
   display: inline-block;

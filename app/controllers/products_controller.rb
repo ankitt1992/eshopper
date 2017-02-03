@@ -17,6 +17,9 @@ class ProductsController < ApplicationController
     if user_signed_in?
       @cart_items = current_user.cart_items.all
     end
+    @categories = Category.all.where(parent_id: nil)
+    @brands = Brand.where(status: true).all
+    @category = Category.first
   end
 
   # GET /products/new
