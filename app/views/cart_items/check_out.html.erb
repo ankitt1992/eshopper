@@ -100,7 +100,9 @@
       </div>
 
       <div class="centerize">
-        <input type="button" value="Pay with Stripe" class="btn btn-primary", onclick="submitForms()" />
+        <!-- <input type="button" value="Pay with Stripe" class="btn btn-primary", onclick="" /> -->
+        <%#= button_to "Pay with stripe", new_charge_path%>
+        <%= link_to 'Continue to pay', new_charge_path, class: "btn btn-primary"%>
       </div>
     </div>
   </div>
