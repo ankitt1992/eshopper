@@ -7,64 +7,101 @@
       </ol>
     </div>
 
-    <div class="step-one">
-        <h2 class="heading">Step1</h2>
-    </div>
-      
-    <div class="checkout-options">
-      <h3>New User</h3>
-      <p>Checkout options</p>
-      <ul class="nav">
-        <li>
-          <label><input type="checkbox"> Register Account</label>
-        </li>
-        <li>
-          <label><input type="checkbox"> Guest Checkout</label>
-        </li>
-        <li>
-          <a href=""><i class="fa fa-times"></i>Cancel</a>
-        </li>
-      </ul>
+    <div class="login">
+      <div class="step-one">
+          <h2 class="heading">Step 1: User Login</h2>
+      </div>
+        
+      <div class="checkout-options">
+        <h3>New User</h3>
+        <p>Checkout options</p>
+        <ul class="nav">
+          <li>
+            <label><input type="checkbox"> Register Account</label>
+          </li>
+          <li>
+            <label><input type="checkbox"> Guest Checkout</label>
+          </li>
+          <li>
+            <a href=""><i class="fa fa-times"></i>Cancel</a>
+          </li>
+        </ul>
       </div><!--/checkout-options-->
 
       <div class="register-req">
         <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
       </div><!--/register-req-->
+    </div>
 
-    <div class="shopper-informations">
-      
-      <div class="row">
-        <%= form_for @address, :html => { :id => "address_fields" } do |f| %>
-          <div class="col-sm-5">
-            <div class="bill-to">
-              <div class="form-one form-two">
-                <p>Bill To</p>
-                <%= render 'address', f: f %>
+    <div class="addresses">
+      <div class="step-one">
+        <h2 class="heading">Step 2: Address Details </h2>
+      </div>
+
+      <div class="shopper-informations ">
+        <div class="add_address">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add new address</button>
+        </div>
+        <div class="row address_exist">
+          <% if current_user.addresses.present? %>
+            <% current_user.addresses.each do |address|%>
+              <div class="panel-body col-sm-4">
+                <p><b><%= current_user.first_name %><% current_user.last_name %></b></p>
+                <p><%= address.address1 %></p>
+                <p><%= address.address2 %></p>
+                <p><%= address.state %></p>
+                <p><%= address.postal_code %></p>
+                <p><%= address.country %></p>
+                <div class="btn btn-primary link_to_add">
+                  <%= link_to 'Continue with this address','',remote: true, class:"link_to_add"  %>
+                </div>
+                <p><%= link_to "Delete",address_path(address), method: :delete,class:"btn btn-default",data: {confirm: 'Are you sure?'}%></p>
               </div>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="row new_address ">
+                  <%= form_for @address, :html => { :id => "address_fields" } do |f| %>
+                    <div class="col-sm-12">
+                      <div class="bill-to">
+                        <div class="form-one form-two modal-form">
+                          <%= render 'address', f: f %>
+                          <%= f.submit 'Add Address', class:'btn btn-primary'  %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div> -->
             </div>
           </div>
-          <div class="col-sm-5 clearfix">
-            <div class="bill-to">
-              <div class="form-one form-two">
-                <p>Ship To</p>
-                <%= render 'address', f: f, address_type: 'ship_to' %>
-                <label><%=check_box_tag 'checkbox' %>Shipping to bill address</label>
-              </div>
-            </div>
-          </div>         
-        <% end %>
+        </div>  
       </div>
     </div>
 
-    <div class="review-payment">
-        <h2>Review & Payment</h2>
-    </div>
+    <div class="payment collapse" id="payment">
+      <div class="step-one">
+        <h2 class="heading">Step 3: Review & payment </h2>
+      </div>
 
-    <div class="table-responsive cart_info" >
-      <%= render partial: 'cart_items_detail', locals: {show_cart_details: true}%>
-    </div>
-    <div class="centerize">
-      <input type="button" value="Continue" class="btn btn-primary", onclick="submitForms()" />
+      <div class="table-responsive cart_info " >
+        <%= render partial: 'cart_items_detail', locals: {show_cart_details: true}%>
+      </div>
+
+      <div class="centerize">
+        <input type="button" value="Pay with Stripe" class="btn btn-primary", onclick="submitForms()" />
+      </div>
     </div>
   </div>
 </section> <!--/#cart_items-->

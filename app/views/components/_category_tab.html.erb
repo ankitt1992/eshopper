@@ -1,18 +1,18 @@
 <div class="category-tab"><!--category-tab-->
-  <div class="col-sm-12">
-    <ul class="nav nav-tabs">
-    <%if @category.present? %>
-    <% navigation_list.each do |s|%>
-      <%s.name.gsub!(/:.+:/,'')%>
-    <% end %>
-      <% navigation_list.order('name ASC').where(status: true).each_with_index do |subcategory, i|%>
-        <li class= <%= 'active' if params[:subcategory_id].to_s == subcategory.id.to_s %> >
-          <%= link_to subcategory.name.gsub(/:.+:/,''), category_path(id: @category.id, subcategory_id: subcategory.id)%>
-        </li>
-      <% end %>
-    <% end %>
-    </ul>
-  </div>
+  <%if @category.present? %>
+    <div class="col-sm-12">
+      <ul class="nav nav-tabs">
+        <% navigation_list.each do |s|%>
+          <%s.name.gsub!(/:.+:/,'')%>
+        <% end %>
+        <% navigation_list.order('name ASC').where(status: true).each_with_index do |subcategory, i|%>
+          <li class= <%= 'active' if params[:subcategory_id].to_s == subcategory.id.to_s %> >
+            <%= link_to subcategory.name.gsub(/:.+:/,''), category_path(id: @category.id, subcategory_id: subcategory.id)%>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
   <div class="">
   <%if @category.present? %>
@@ -27,7 +27,7 @@
                     <div class="productinfo text-center">
                       <%= link_to product_path(product) do %>
                         <%if product.pictures.present?%>
-                          <%= image_tag product.pictures.first.image.url, width:'184px', height:'245px'%>
+                          <%= image_tag product.pictures.first.image.product.url%>
                         <% end %>
                           <h2>&#8377; <%= product.price%></h2>
                           <p class="product_name_height"><%= product.name%></p>

@@ -63,6 +63,17 @@ $(document).ready(function(){
 });
 
 
+$(document).ready(function(){
+$(document).on("click",".link_to_add",function(){
+$(".payment").show()
+});
+});
+// $(document).ready(function(){
+//   $(document).on('click','.link_to_add', function(){
+//     $('#payment').show()
+// });
+// });
+
 
 // function show_brand(id){
 //   debugger

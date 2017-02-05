@@ -116,6 +116,7 @@ GEM
     hashie (3.5.1)
     hike (1.2.3)
     i18n (0.8.0)
+    image_magick (0.1.9)
     jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -297,6 +298,7 @@ DEPENDENCIES
   country_state_select (= 3.0.0)
   devise
   font-awesome-rails
+  image_magick
   jbuilder (~> 2.0)
   jquery-rails
   mini_magick

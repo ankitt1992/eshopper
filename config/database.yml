@@ -8,6 +8,7 @@
 ############ sqlite start ##########
 default: &default
   adapter: postgresql
+  host: localhost
   pool: 5
   username: postgres
   password: p@ssw0rd

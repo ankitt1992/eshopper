@@ -65,6 +65,7 @@ gem 'rails_admin', '~> 1.0'
 gem 'awesome_print'
 gem 'table_print'
 gem 'carrierwave', '~> 1.0'
+gem 'image_magick'
 gem 'mini_magick'
 gem "omniauth-google-oauth2"
 gem 'omniauth-facebook'

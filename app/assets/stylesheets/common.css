@@ -111,8 +111,9 @@
 
 .address_exist{
   line-height: 15px;
-  width: 20%;
+  margin-left: 0px !important;
   margin: 0px 0px 10px 25px;
+  
 }
 
 .centerize { 
@@ -120,14 +121,32 @@
   margin-bottom: 20px;
 }
 
+.add_address{
+  margin-bottom: 30px !important;
+}
+.panel-body{
+  border: 1px solid #ddd;
+}
 /*.social-share-button-facebook {
   display: inline-block;
   width: 16px;
   height: 16px;
   background: url("/social/facebook.png") no-repeat;
 }*/
+.link_to_add a{
+  color: white !important;
+}
 
+.link_to_add {
+  margin-bottom: 10px !important;
+}
 
+.modal-form{
+  margin-left: 10px !important;
+}
+.modal-dialog{
+  width: 430px !important;
+}
 
 /*.fa-google-plus{
   text-transform: lowercase !important;

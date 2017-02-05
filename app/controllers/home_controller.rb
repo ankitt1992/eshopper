@@ -8,7 +8,9 @@ class HomeController < ApplicationController
     @category = Category.first
     if @category.present?
       @subcategory = @category.subcategories.first
-      @products = @subcategory.products.limit(8)
+      if @subcategory.present?
+        @products = @subcategory.products.limit(8)
+      end
     end
 
     @cart_item = CartItem.new
