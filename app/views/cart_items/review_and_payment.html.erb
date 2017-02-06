@@ -1,0 +1,31 @@
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li class="active">Shopping Cart</li>
+      </ol>
+    </div>
+    <div class="payment " id="payment">
+      <div class="step-one">
+        <h2 class="heading">Step 3: Review & payment </h2>
+      </div>
+
+      <div class="table-responsive cart_info " >
+        <%= render partial: 'cart_items_detail', locals: {show_cart_details: true}%>
+      </div>
+
+      <div class="centerize">
+        <!-- <input type="button" value="Pay with Stripe" class="btn btn-primary", onclick="" /> -->
+        <%#= button_to "Pay with stripe", new_charge_path%>
+        <%= form_for @order, :url => orders_path(@order) do |f| %>
+          <%= f.hidden_field :address_id, value: params[:address_id]%>
+          <%= f.hidden_field :status, value: "pending"%>
+          <%= f.hidden_field :grand_total, value: @grand_total%>
+          <%= f.submit "Continue to pay" %>
+        <% end %>
+        <%#= link_to 'Continue to pay', new_order_path(address_id: params[:address_id]), class: "btn btn-primary"%>
+      </div>
+    </div>
+  </div>
+</section>

@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   devise :omniauthable, :omniauth_providers => [:facebook,:google_oauth2,:twitter]
   has_many :cart_items
   has_many :addresses
+  has_many :orders
 
   # after_create :send_admin_mail
   

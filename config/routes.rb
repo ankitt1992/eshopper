@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :order_items
-  resources :orders
+  resources :orders do 
+    get :payment, on: :member
+    post :create_charges, on: :member
+  end
   resources :carts
   devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -18,6 +21,7 @@ Rails.application.routes.draw do
   # resource :cart, only: [:show]
   # resources :order_items, only: [:create, :update, :destroy]
   get '/check_outs', to: 'cart_items#check_out'
+  get '/review_and_payment', to: 'cart_items#review_and_payment'
   resources :charges
   root 'home#index'
 
