@@ -1,7 +1,7 @@
 class CartItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_cart_item, only: [:show, :edit, :update, :destroy]
-  before_action :set_cart_item_detail, only: [:index, :check_out]
+  before_action :set_cart_item_detail, only: [:index, :check_out, :review_and_payment]
   
   # GET /cart_items
   # GET /cart_items.json
@@ -94,6 +94,10 @@ class CartItemsController < ApplicationController
 
   def check_out
     @address= Address.new
+  end
+
+  def review_and_payment
+    @order= current_user.orders.new
   end
 
   private
