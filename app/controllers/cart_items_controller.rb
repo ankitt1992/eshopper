@@ -6,6 +6,7 @@ class CartItemsController < ApplicationController
   # GET /cart_items
   # GET /cart_items.json
   def index
+    @cart_items = current_user.cart_items
   end
 
   # GET /cart_items/1
@@ -20,6 +21,7 @@ class CartItemsController < ApplicationController
 
   # GET /cart_items/1/edit
   def edit
+
   end
 
   # POST /cart_items
@@ -55,7 +57,7 @@ class CartItemsController < ApplicationController
     @cart_item.save
     @cart_items_total = current_user.cart_items.sum(:total) 
     @vat = 0.04 * @cart_items_total
-    if @cart_items_total < 500
+    if @cart_items_total < 500 && @cart_items_total > 0
       @shipping_cost = 40.to_f
       @grand_total = @cart_items_total + @vat + @shipping_cost
     else

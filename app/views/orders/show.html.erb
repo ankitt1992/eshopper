@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="greeting">Thanks for your order</h3>
+      <p>Your payment of &#8377; <%= @amount %> is complete</p>
+    </div>
+    <div class="panel-body">
+      <div class="invoice-address">
+        <h3>Invoice</h3>
+        <div class="invoice-address_detail">
+          <div class= "invoice-logo">
+            <%= link_to (image_tag 'home/logo.png'), root_url%>
+          </div>
+          <p><b><%= current_user.first_name %><% current_user.last_name %></b></p>
+          <p><%= @address.address1 %></p>
+          <p><%= @address.address2 %></p>
+          <p><%= @address.state %></p>
+          <p><%= @address.postal_code %></p>
+          <p><%= @address.country %></p>
+        </div>
+      </div>
+
+      <div class="table-responsive">          
+        <table class="table">
+          <col width="35%">
+          <col width="25%">
+          <col width="15%">
+          <col width="25%">
+          <thead>
+            <tr>
+              <th>Items</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @order_items.each do |order_item|%>
+              <tr>
+                <td><%=order_item.product.name %></td>
+                <td><%=order_item.product.price %></td>
+                <td><%=order_item.quantity %></td>
+                <td>&#8377; <%=order_item.sub_total %></td>
+              </tr>
+            <% end %>
+            <tr>
+                <td></td>
+                <td></td>
+                <th>Total</th>
+                <td>&#8377; <%= @order.grand_total%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel-footer centerize ">
+      <%= link_to "<< Continue Shopping again >>",root_url, class: "btn btn-primary"%>
+    </div>
+  </div>
+</div>

@@ -10,28 +10,43 @@ class OrdersController < ApplicationController
 	end
 
 	def payment
-		
+    @order = Order.find(params[:id])
+    if @order.status=="successfull" 
+      redirect_to root_url 
+    else
+		  @grand_total = @order.grand_total.to_f
+    end
 	end
 
 	def create
-		@order = current_user.orders.new(order_params)
-    respond_to do |format|
+
+    @order = current_user.orders.find_by(status: "pending")
+    if @order.present?
+      if @order.update(grand_total: params[:order][:grand_total])
+        redirect_to payment_order_path(@order)
+      end
+    else
+		  @order = current_user.orders.new(order_params)
+      respond_to do |format|
       if @order.save
         format.html { redirect_to payment_order_path(@order)}
       end
+    end
     end
   end
 
 
   def show
-
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items
+    @amount = @order.grand_total
+    @address = Address.find(@order.address_id)
   end
 
 
 
   def create_charges
-   # Amount in cents
-   @amount=50000
+   @amount = (current_user.orders.last.grand_total * 100).to_i 
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
       :source  => params[:stripeToken]
@@ -40,20 +55,27 @@ class OrdersController < ApplicationController
       :customer    => customer.id,
       :amount      => @amount,
       :description => 'Rails Stripe customer',
-      :currency    => 'usd'
+      :currency    => 'inr'
     )
     @order = Order.find(params[:id])
-    @order = @order.update(status: "successfull", transaction_id: params[:stripeToken])
-    
+    if params[:stripeToken].present?
+      @cart_items = current_user.cart_items
+      @order = @order.update(status: "successfull", :transaction_id=> params[:stripeToken])
+      
+      @cart_items.each do |cart_item|
+        @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
+      end
+      current_user.cart_items.destroy_all
+    end
+    redirect_to order_path(params[:id])
     rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_charge_path
-    
+      flash[:error] = e.message
+      redirect_to payment_order_path
   end
 	  
 	private
 	def order_params
-		params.require(:order).permit(:address_id, :status,:grand_total)
+		params.require(:order).permit(:address_id, :status, :grand_total)
 	end
 
 end

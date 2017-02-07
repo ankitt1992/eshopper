@@ -39,12 +39,16 @@
           </td>
           <td class="cart_quantity">
             <div class="cart_quantity_button">
-              <%= link_to '+', cart_item_path(cart_item, increase: 'increase'), method: :put, class: 'cart_quantity_up', remote:true %>
-              <%= form_for cart_item, method: :put,class:'form_class', remote: true do |f| %>
-                <%#= f.hidden_field :cart_update, value: 'cart_update'%>
-                <%= f.text_field :quantity, size: 2, class:"cart_quantity_input", id: "cart-item-count-"+ cart_item.id.to_s ,:onchange=> " $(this.form).submit();"  %>
-              <% end %>
-                <%= link_to '-', cart_item_path(cart_item, decrease: 'decrease'), method: :put, class: 'cart_quantity_down', remote:true %>
+              <% if request.original_url.include? "review_and_payment" %>
+                <label class="review-quantity"><%= cart_item.quantity %></label>
+              <% else %>
+                <%= link_to '+', cart_item_path(cart_item, increase: 'increase'), method: :put, class: 'cart_quantity_up', remote:true %>
+                <%= form_for cart_item, method: :put,class:'form_class', remote: true do |f| %>
+                  <%#= f.hidden_field :cart_update, value: 'cart_update'%>
+                  <%= f.text_field :quantity, size: 2, class:"cart_quantity_input", id: "cart-item-count-"+ cart_item.id.to_s ,:onchange=> " $(this.form).submit();"  %>
+                    <% end %>
+                  <%= link_to '-', cart_item_path(cart_item, decrease: 'decrease'), method: :put, class: 'cart_quantity_down', remote:true %>
+              <% end %>  
             </div>
           </td>
           <td class="cart_total">
@@ -52,11 +56,14 @@
             <%b = cart_item.quantity.to_i %>
             <p id="cart_item_total_<%= cart_item.id %>" class="cart_total_price">&#8377;<%= cart_item.total%></p>
           </td>
-          <td class="cart_delete">
-            <%= link_to cart_item, { data: { confirm: "Are you sure you wish to delete the product '#{cart_item.product.name}' from your cart?" }, method: :delete,remote: true,  class: "cart_quantity_delete", title: 'remove' } do %>
-              <i class="fa fa-times"></i>
-            <% end %>
-          </td>
+
+          <% if request.original_url.include? "cart_items" %>
+            <td class="cart_delete">
+              <%= link_to cart_item, { data: { confirm: "Are you sure you wish to delete the product '#{cart_item.product.name}' from your cart?" }, method: :delete,remote: true,  class: "cart_quantity_delete", title: 'remove' } do %>
+                <i class="fa fa-times"></i>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
       <%if show_cart_details==true%>

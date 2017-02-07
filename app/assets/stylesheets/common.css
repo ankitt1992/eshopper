@@ -124,7 +124,7 @@
 .add_address{
   margin-bottom: 30px !important;
 }
-.panel-body{
+.address_panel{
   border: 1px solid #ddd;
 }
 /*.social-share-button-facebook {
@@ -148,6 +148,23 @@
   width: 430px !important;
 }
 
+.invoice-address{
+  width: 220px;
+  line-height: 15px;
+}
+.invoice-logo{
+  margin-bottom: 10px;
+}
+.review-quantity{
+  margin-left: 20px;
+}
+.payment-button{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.invoice-address_detail{
+  border: 1px solid #E0E0E0 ;
+}
 /*.fa-google-plus{
   text-transform: lowercase !important;
 }*/

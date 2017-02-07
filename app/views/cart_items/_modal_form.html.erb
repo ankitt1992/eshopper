@@ -1,0 +1,21 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-body">
+      <div class="row new_address ">
+        <%= form_for @address, :html => { :id => "address_fields" } do |f| %>
+          <div class="col-sm-12">
+            <div class="bill-to">
+              <div class="form-one form-two modal-form">
+                <%= render 'address', f: f %>
+                <%= f.submit 'Add Address', class:'btn btn-primary'  %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

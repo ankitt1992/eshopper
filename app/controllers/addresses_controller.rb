@@ -19,6 +19,7 @@ class AddressesController < ApplicationController
 
   # GET /addresses/1/edit
   def edit
+    @address = Address.find(params[:id])
   end
 
   # POST /addresses

@@ -1,5 +1,6 @@
 <% if @cart_items.count==0 %>
   $('#complete-cart-items').fadeOut()
+  $('#do_action').fadeOut()
   $('.collapse').show()
 <% else %>
   $('#<%= @cart_item.id%>').hide()
