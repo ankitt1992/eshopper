@@ -3,7 +3,7 @@
     <div class="breadcrumbs">
       <ol class="breadcrumb">
         <li><%=link_to 'Home', root_url%></li>
-        <li class="active">Shopping Cart</li>
+        <li class="active">Review & payment</li>
       </ol>
     </div>
     <div class="payment " id="payment">
@@ -18,12 +18,17 @@
       <div class="centerize">
         <!-- <input type="button" value="Pay with Stripe" class="btn btn-primary", onclick="" /> -->
         <%#= button_to "Pay with stripe", new_charge_path%>
-        <%= form_for @order, :url => orders_path(@order) do |f| %>
-          <%= f.hidden_field :address_id, value: params[:address_id]%>
-          <%= f.hidden_field :status, value: "pending"%>
-          <%= f.hidden_field :grand_total, value: @grand_total%>
-          <%= f.submit "Continue to pay" %>
-        <% end %>
+        <%#if current_user.cart_items.present?%>
+          <%= form_for @order, :url => orders_path(@order) do |f| %>
+            <%= f.hidden_field :address_id, value: params[:address_id]%>
+            <%= f.hidden_field :status, value: "pending"%>
+            <%= f.hidden_field :grand_total, value: @grand_total%>
+            <%= link_to '<< Continue shopping >>', root_url, class:"btn btn-primary"%>
+            <%= f.submit "Continue to pay", class: "btn btn-primary" %>
+
+          <% end %>
+
+        <%# end%>
         <%#= link_to 'Continue to pay', new_order_path(address_id: params[:address_id]), class: "btn btn-primary"%>
       </div>
     </div>

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
 
-  # after_create :send_admin_mail
+  after_create :send_user_mail
   
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
 
-  # def send_admin_mail
-  #   UserMailer.welcome_email(self).deliver
-  # end
+  def send_user_mail
+    UserMailer.welcome_email(self).deliver
+  end
 end
