@@ -99,7 +99,12 @@ class CartItemsController < ApplicationController
   end
 
   def review_and_payment
-    @order= current_user.orders.new
+    @cart_items = current_user.cart_items
+    if @cart_items.present? 
+      @order= current_user.orders.new
+    else
+      redirect_to root_url 
+    end
   end
 
   private

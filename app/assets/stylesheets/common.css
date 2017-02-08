@@ -164,6 +164,11 @@
 }
 .invoice-address_detail{
   border: 1px solid #E0E0E0 ;
+  padding: 10px;
+}
+
+.address-delete-btn{
+  margin-left: 25px;
 }
 /*.fa-google-plus{
   text-transform: lowercase !important;
