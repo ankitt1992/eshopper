@@ -63,12 +63,13 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     if params[:stripeToken].present?
       @cart_items = current_user.cart_items
-      @order = @order.update(status: "successfull", :transaction_id=> params[:stripeToken])
-      OrderMailer.order_email(current_user).deliver
+      @order.update(status: "successfull", :transaction_id=> params[:stripeToken])
+      
       @cart_items.each do |cart_item|
         @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
       end
       current_user.cart_items.destroy_all
+      OrderMailer.order_email(current_user,@amount, @order.id, @order.created_at).deliver_now
     end
 
     redirect_to order_path(params[:id])

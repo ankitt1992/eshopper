@@ -4,20 +4,19 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
+    <%= image_tag attachments['logo.png'].url, alt: 'Eshopper logo', class: 'logo' %>
     <h1>Your order has been placed, <%= @user.first_name %></h1>
     <p>
       <b>Name:</b> <%=@user.first_name%> <%= @user.last_name%><br>
-      <b>Email-Id:</b> <%=@user.email%><br>
-    </p><br>
-    <p>
-      To check your order summary click here http://localhost:3000/
+      <b>Email-Id:</b> <%=@user.email%>
     </p>
-
-
-<p>Hello there, this is our logo</p>
- 
-<%#= image_tag attachments['logo.png'].url, alt: 'Eshopper logo', class: 'logo' %>
-
+    <h4><b>Order Details:</h4><hr>
+    <p><b>Order-ID:</b> <%= @order_id %></p>
+    <p><b>Order Date:</b> <%= @order_date %></p>
+    <p><b>Order Total:</b>&#8377; <%= @amount.to_f/100 %></p>
+    <p>
+      To check your order summary click here https://eshopper3.herokuapp.com/orders/<%= @order_id%>
+    </p>
     <p>Thanks for ordering and have a great day!</p>
   </body>
 </html>

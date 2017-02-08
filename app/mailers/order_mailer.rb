@@ -1,7 +1,10 @@
 class OrderMailer < ApplicationMailer
-  def order_email(user)
+  def order_email(user,total, id, date)
     @user = user
-    # attachments.inline['logo.png'] = File.read('/home/webwerks1/Training/Rails/Rails/Eshopper3/app/assets/images/home/logo.png')
+    @amount = total
+    @order_id = id
+    @order_date = date
+    attachments.inline['logo.png'] = File.read(Rails.root.join("app/assets/images/home/logo.png"))
     mail(to: @user.email,
       from: 'ankit.neosoft@gmail.com',
       subject: 'Your order has been placed '+@user.first_name,
