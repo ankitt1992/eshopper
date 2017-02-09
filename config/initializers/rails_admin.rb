@@ -1,14 +1,9 @@
 RailsAdmin.config do |config|
 
-
-
-
-
   config.authenticate_with do
     warden.authenticate! scope: :admin
   end
   config.current_user_method(&:current_admin)
-
 
   config.model Banner do
     list do
@@ -22,13 +17,13 @@ RailsAdmin.config do |config|
   end
 
 config.model Picture do
-    list do
-      field :image, :carrierwave do
-        delete_method :image_delete     # don't forget to whitelist if you use :attr_accessible
-        cache_method :image_cache   
+  list do
+    field :image, :carrierwave do
+      delete_method :image_delete     # don't forget to whitelist if you use :attr_accessible
+      cache_method :image_cache   
       end
-      # field :title
-      # field :description
+    # field :title
+    # field :description
     end
   end
   # config.model 'Banner' do

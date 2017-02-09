@@ -16,6 +16,7 @@
 
   <%= f.text_field :state, placeholder: "State / Province / Region", name: "address[state]", id: "#{address_type}_state" %>
   <%= f.text_field :mobile_no, placeholder: "Mobile Number", name: "address[mobile_no]", id: "#{address_type}_mobile_no" %>
+  <%= f.hidden_field :status, value: 'active'%>
   <%#= f.hidden_field :address_type, value: "#{address_type}" , name: "address[address_type]" , id: "#{address_type}_address_type"%>
 <%# end %>
 </div>

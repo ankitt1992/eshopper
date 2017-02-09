@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   skip_before_filter :verify_authenticity_token  
   before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :current_order
+  before_filter :set_brand
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up) do |user_params|
@@ -16,6 +17,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+def set_brand
+  @brands = Brand.where(status: true).all
+end
 
   # def current_order
   #   if !session[:order_id].nil?

@@ -27,7 +27,7 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   # POST /cart_items.json
   def create
-    @cart_items = current_user.cart_items.all
+    @cart_items = current_user.cart_items
     @cart_item = CartItem.new(cart_item_params)
     @cart_item.user_id = current_user.id
     @product = @cart_item.product
@@ -50,8 +50,8 @@ class CartItemsController < ApplicationController
     if params[:increase].present? && @cart_item.product.quantity>0
       @cart_item.quantity+= 1
     elsif params[:decrease].present? && @cart_item.quantity > 1
-      @cart_item.quantity -= 1
-    elsif params[:cart_item][:quantity].to_i >0
+      @cart_item.quantity-= 1
+    elsif params[:cart_item][:quantity].to_i > 0
       @cart_item.quantity = params[:cart_item][:quantity]
     end
     @cart_item.save
@@ -73,7 +73,6 @@ class CartItemsController < ApplicationController
       else
         format.html { render :edit }
         format.json { render json: @cart_item.errors, status: :unprocessable_entity }
-
       end
     end
   end

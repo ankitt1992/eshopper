@@ -42,13 +42,19 @@ class AddressesController < ApplicationController
   # PATCH/PUT /addresses/1.json
   def update
     @address = Address.find(params[:id])
-    respond_to do |format|
-      if @address.update(address_params)
-        format.html { redirect_to check_outs_path, notice: 'Address was successfully updated.' }
-        format.json { render :show, status: :ok, location: @address }
-      else
-        format.html { render :edit }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
+    if params[:status] == "delete"
+      @address.update(status: 'inactive')
+      @address.save
+      redirect_to check_outs_path, notice: 'Address was successfully deleted' 
+    else
+      respond_to do |format|
+        if @address.update(address_params)
+          format.html { redirect_to check_outs_path, notice: 'Address was successfully updated.' }
+          format.json { render :show, status: :ok, location: @address }
+        else
+          format.html { render :edit }
+          format.json { render json: @address.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -71,6 +77,6 @@ class AddressesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def address_params
-      params.require(:address).permit(:email, :first_name, :last_name, :address1, :address2,:postal_code, :country, :state, :mobile_no)
+      params.require(:address).permit(:status, :email, :first_name, :last_name, :address1, :address2,:postal_code, :country, :state, :mobile_no)
     end
 end

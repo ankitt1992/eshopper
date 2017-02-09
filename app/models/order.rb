@@ -1,7 +1,8 @@
 class Order < ActiveRecord::Base
   belongs_to :user
   has_many :order_items
-  has_many :addresses
+  belongs_to :address
+  # has_many :addresses
 
   # before_save :update_sub_total
 

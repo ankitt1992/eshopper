@@ -43,8 +43,8 @@
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add new address</button>
         </div>
         <div class="row address_exist">
-          <% if current_user.addresses.present? %>
-            <% current_user.addresses.each do |address|%>
+          <% if current_user.addresses.where(status: 'active').present? %>
+            <% current_user.addresses.where(status: 'active').each do |address|%>
               <div class="panel-body col-sm-3 address_panel">
                 <p><h4><%= address.first_name %> <%= address.last_name %></h4></p>
                 <p><%= address.address1 %></p>
@@ -57,11 +57,11 @@
                   <%= link_to 'Continue with this address', review_and_payment_path(:address_id=>address.id),  class:"link_to_add"  %>
                 </div>
                 <p>
-                <%#= link_to "Edit", edit_address_path(address), :class => "btn btn-default", :remote => true, "data-toggle" => "modal", "data-target" => "#myModal" %>
                   <%= link_to edit_address_path(address), class:"btn btn-default ",remote: true do %>
                   <i class="fa fa-edit"> Edit</i>
                   <% end %>
-                  <%= link_to address_path(address), method: :delete,class:" address-delete-btn btn btn-default",data: {confirm: 'Are you sure?'} do %>
+                  <%#= link_to address_path(address), method: :delete,class:" address-delete-btn btn btn-default",data: {confirm: 'Are you sure?'} do %>
+                  <%= link_to address_path(address, status: 'Delete'), method: :put ,class:" address-delete-btn btn btn-default",data: {confirm: 'Are you sure?'} do %>
                   <i class="fa fa-trash"> Delete</i>
                   <% end %>
                 </p>

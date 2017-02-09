@@ -17,7 +17,7 @@
                 <% @similar_products.each_slice(3).with_index do |slice, i|%>
                   <div class="item <%= ('active' if i==0) %>">
                     <% slice.each_with_index do |product,j|%>
-                      <%= image_tag product.pictures.first.image, class: (j == 0 ? "product_left_margin" : "product_no_left_margin") %>
+                      <%=link_to image_tag(product.pictures.first.image, class: (j == 0 ? "product_left_margin" : "product_no_left_margin")), product_path(product) %>
                     <% end %>
                   </div>
                 <% end %>
