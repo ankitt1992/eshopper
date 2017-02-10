@@ -1,2 +1,3 @@
 $('#product-cart-status-'+<%=@product.id%>).html("<%= escape_javascript render(:partial => '/cart_items/product_cart_status', :locals => { product: @product }) %>")
 $('#cart_counts').html('('+<%= @cart_items.count%>+')')
+$('.flash').html("<div class='alert  alert-success'><center><a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a>Item was successfully added to cart.</center></div>");

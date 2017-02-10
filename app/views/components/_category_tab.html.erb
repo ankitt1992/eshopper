@@ -27,7 +27,9 @@
                     <div class="productinfo text-center">
                       <%= link_to product_path(product) do %>
                         <%if product.pictures.present?%>
-                          <%= image_tag product.pictures.first.image.product.url%>
+                          <div class="image-width">
+                            <%= image_tag product.pictures.first.image.product.url%>
+                          </div>
                         <% end %>
                           <h2>&#8377; <%= product.price%></h2>
                           <p class="product_name_height"><%= product.name%></p>

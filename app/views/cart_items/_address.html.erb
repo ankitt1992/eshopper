@@ -3,7 +3,7 @@
 <%#= form_for @address, :html => { :id => "#{address_type}" } do |f| %>
   <%= f.email_field :email, placeholder: 'Email*',value: current_user.email, name: "address[email]", id: "#{address_type}_email" %>
   <%= f.text_field :first_name, placeholder: "First Name *",value: current_user.first_name, name: "address[first_name]", id: "#{address_type}_first_name" %>
-  <%= f.text_field :last_name, placeholder: "Last Name *", name: "address[last_name]", id: "#{address_type}_last_name" %>
+  <%= f.text_field :last_name, placeholder: "Last Name *",value: current_user.last_name, name: "address[last_name]", id: "#{address_type}_last_name" %>
   <%= f.text_field :address1, placeholder: "Address1 *", name: "address[address1]", id: "#{address_type}_address1" %>
   <%= f.text_field :address2, placeholder: "Address2 *", name: "address[address2]", id: "#{address_type}_address2" %>
   <%= f.text_field :postal_code, placeholder: "Zip / Postal_code" , name: "address[postal_code]" , id: "#{address_type}_postal_code"%>

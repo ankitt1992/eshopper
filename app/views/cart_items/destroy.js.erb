@@ -10,3 +10,4 @@ $('#cart_item_total_'+<%= @cart_item.id %>).html('&#8377;'+ <%= @cart_item.total
 $('#vat').html('&#8377; <%= @vat%>')
 $('#cart_sub_total').html('&#8377; <%= @cart_items_total%>')
 $('#cart_total').html('&#8377; <%= @grand_total%>')
+$('.flash').html("<div class='alert  alert-success'><center><a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a>Item was successfully deleted.</center></div>");

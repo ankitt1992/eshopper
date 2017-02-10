@@ -170,6 +170,11 @@
 .address-delete-btn{
   margin-left: 25px;
 }
+
+.image-width{
+  width: 184px;
+  height: 245px;
+}
 /*.fa-google-plus{
   text-transform: lowercase !important;
 }*/

@@ -60,6 +60,7 @@ class OrdersController < ApplicationController
       :description => 'Rails Stripe customer',
       :currency    => 'inr'
     )
+    binding.pry
     @order = Order.find(params[:id])
     if params[:stripeToken].present?
       @cart_items = current_user.cart_items

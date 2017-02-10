@@ -7,7 +7,7 @@ class OrderMailer < ApplicationMailer
     attachments.inline['logo.png'] = File.read(Rails.root.join("app/assets/images/home/logo.png"))
     mail(to: @user.email,
       from: 'ankit.neosoft@gmail.com',
-      subject: 'Your order has been placed '+@user.first_name,
+      subject: 'Your order has been placed '+@user.first_name
       # text: 'This mail is sent using Mailgun API via mailgun-ruby'
       )
   end
