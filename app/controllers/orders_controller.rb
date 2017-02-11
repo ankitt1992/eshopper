@@ -1,43 +1,9 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
 
-	def new
-		# @cart_items_total = current_user.cart_items.sum(:total) 
-    # @vat = 0.04 * @cart_items_total
-    # @grand_total = @cart_items_total + @vat
-		# @order = current_user.orders.new(address_id: params[:address_id], grand_total: @grand_total, status: "pending")
-		# @order.save
-	end
-
-	def payment
-    if user_signed_in?
-      @cart_items = current_user.cart_items.all
-    end
-
-    @order = Order.find(params[:id])
-    if @order.status=="successfull" 
-      redirect_to root_url 
-    else
-		  @grand_total = @order.grand_total.to_f
-    end
-	end
-
-	def create
-    @order = current_user.orders.find_by(status: "pending")
-    if @order.present?
-      if @order.update(grand_total: params[:order][:grand_total])
-        redirect_to payment_order_path(@order)
-      end
-    else
-		  @order = current_user.orders.new(order_params)
-      respond_to do |format|
-        if @order.save
-          format.html { redirect_to payment_order_path(@order)}
-        end
-      end
-    end
+  def index
+    @orders = current_user.orders.order('created_at DESC')
   end
-
 
   def show
     @order = Order.find(params[:id])
@@ -46,6 +12,43 @@ class OrdersController < ApplicationController
     @address = Address.find(@order.address_id)
   end
 
+  def new
+    # @cart_items_total = current_user.cart_items.sum(:total) 
+    # @vat = 0.04 * @cart_items_total
+    # @grand_total = @cart_items_total + @vat
+    # @order = current_user.orders.new(address_id: params[:address_id], grand_total: @grand_total, status: "pending")
+    # @order.save
+  end
+
+
+  def create
+    @order = current_user.orders.find_by(status: "pending")
+    if @order.present?
+      if @order.update(grand_total: params[:order][:grand_total])
+        redirect_to payment_order_path(@order)
+      end
+    else
+      @order = current_user.orders.new(order_params)
+      respond_to do |format|
+        if @order.save
+          format.html { redirect_to payment_order_path(@order)}
+        end
+      end
+    end
+  end
+
+  def payment
+    if user_signed_in?
+      @cart_items = current_user.cart_items.all
+    end
+
+    @order = Order.find(params[:id])
+    if @order.status=="successfull" 
+      redirect_to root_url 
+    else
+      @grand_total = @order.grand_total.to_f
+    end
+  end
 
 
   def create_charges
@@ -60,7 +63,6 @@ class OrdersController < ApplicationController
       :description => 'Rails Stripe customer',
       :currency    => 'inr'
     )
-    binding.pry
     @order = Order.find(params[:id])
     if params[:stripeToken].present?
       @cart_items = current_user.cart_items

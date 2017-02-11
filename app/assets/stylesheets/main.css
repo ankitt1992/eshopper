@@ -195,6 +195,9 @@ a#scrollUp i{
   padding-right: 0;
 }
 
+.sub-menu li a{
+  background: transparent !important;
+}
 
 .shop-menu ul li a {
   background: #FFFFFF;
@@ -293,7 +296,7 @@ ul.sub-menu {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	width: 220px;
+	width: 140px;
 	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
 	display: none;

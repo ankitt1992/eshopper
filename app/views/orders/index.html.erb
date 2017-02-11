@@ -1,35 +1,57 @@
-<p id="notice"><%= notice %></p>
+<section id="myorders">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li class="active">My Orders</li>
+      </ol>
+    </div>
 
-<h1>Listing Orders</h1>
+    <h2>My Orders</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Shipping address</th>
-      <th>Status</th>
-      <th>Sub total</th>
-      <th>Total</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <div class="panel-group">
+    <% @orders.each do |order|%>
+      <div class="panel panel-default">
+        <div class="panel-heading order-panel">
+          <table class="table order-table">
+            <tr>
+              <td>
+                <p>Order Placed</p> 
+                <p><%= order.created_at.strftime("%d %B %Y") %></p>
+              </td>
+              <td>
+                <p>Total</p>
+                <p>&#8377; <%= order.grand_total%></p>
+              </td>
+              <td>
+                <p>Ship to</p>
+                <p><%= order.address.first_name%> <%= order.address.last_name%> <i class="fa fa-sort-down"></i></p>
+              </td>
+              <td>
+                <p>Order-Id # <%= order.id%></p>
+                <p><%= link_to "Order details", order_path(order)%></p>
+              </td>
+            </tr>
+          </table>
+        </div>
 
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.shipping_address %></td>
-        <td><%= order.status %></td>
-        <td><%= order.sub_total %></td>
-        <td><%= order.total %></td>
-        <td><%= order.user %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+        <table class="table table-condensed">
+        <col width="10%">
+        <col width="80%">
+        <% order.order_items.each do |order_item| %>
+          <tbody>
+            <tr>
+              <td><%= image_tag order_item.product.pictures.first.image.preview.url%></td>
+              <td>
+                <div><%= link_to order_item.product.name%> </div>
+                <div>&#8377; <%=order_item.product.price%></div>              
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+        </table>
+      </div>
+    <% end %>      
+    </div>
+  </div>
+</section>

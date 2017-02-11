@@ -175,6 +175,14 @@
   width: 184px;
   height: 245px;
 }
+
+.order-panel{
+  padding: 0px !important;
+}
+
+.order-table{
+  margin-bottom: 0px !important;
+}
 /*.fa-google-plus{
   text-transform: lowercase !important;
 }*/
