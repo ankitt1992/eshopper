@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :cart_items
   has_many :addresses
   has_many :orders
+  has_many :wishlists
 
   after_create :send_user_mail
   

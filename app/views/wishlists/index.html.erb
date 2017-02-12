@@ -1,0 +1,26 @@
+<section id="myorders">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li class="active">My Wishlists</li>
+      </ol>
+    </div>
+
+    <div class="col-sm-offset-1 col-sm-9">
+      <h2>My Wishlists</h2>
+      <table class="table">
+      <% if @wishlists.present?%>
+        <tbody>
+        <%= @wishlists.each do |wishlist|%>
+          <tr>
+            <td>Abc</td>
+          </tr>
+        <% end %>
+        </tbody>
+      <% end %>
+      </table>
+    </div>
+
+  </div>
+</section>

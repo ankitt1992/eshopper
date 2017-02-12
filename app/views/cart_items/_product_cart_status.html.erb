@@ -11,8 +11,13 @@
       <div class="input-group-btn">
         <%= f.hidden_field :product_id, value: product.id %>
         <%= f.hidden_field :quantity, value: 1 %>
-        <%= f.submit 'Add to cart', class: "btn btn-default add-to-cart" do %>
-          <i class="fa fa-shopping-cart"></i>
+        <%= button_tag type: 'submit' , class: "btn btn-default add-to-cart" do %>
+          <i class="fa fa-shopping-cart"> Add to cart</i>
+        <% end %>
+        <%= form_for @wishlist do |f| %>
+          <%= button_tag type: 'submit' , class: "btn btn-default add-to-cart", title: "Add to wishlist" do %>
+            <i class="fa fa-heart"></i>
+          <% end %>
         <% end %>
       </div>
     <% end %>

@@ -5,5 +5,8 @@ class Product < ActiveRecord::Base
   belongs_to :brand
   has_many :order_items
 
+  has_many :product_wishlists
+  has_many :wishlists, :through=> :product_wishlists
+
   default_scope{where(status: true)}
 end

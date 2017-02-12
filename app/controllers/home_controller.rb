@@ -14,6 +14,7 @@ class HomeController < ApplicationController
     end
 
     @cart_item = CartItem.new
+    @wishlist = Wishlist.new
 
     if user_signed_in?
       @cart_items = current_user.cart_items.all

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :wishlists
   resources :order_items
   resources :orders do 
     get :payment, on: :member
