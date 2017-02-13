@@ -25,7 +25,9 @@
               </td>
               <td>
                 <p>Ship to</p>
-                <p><%= order.address.first_name%> <%= order.address.last_name%> <i class="fa fa-sort-down"></i></p>
+                <% if order.address.present?%>
+                  <p><%= order.address.first_name%> <%= order.address.last_name%> <i class="fa fa-sort-down"></i></p>
+                <% end %>
               </td>
               <td>
                 <p>Order-Id # <%= order.id%></p>

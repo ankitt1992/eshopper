@@ -918,7 +918,7 @@ h2.title {
   width: 100%;
 }
 
-.product-overlay .add-to-cart {
+.product-overlay .add-to-cart .add-to-wishlist {
   background:#fff;
   border: 0 none;
   border-radius: 0;
@@ -926,8 +926,8 @@ h2.title {
   font-family: 'Roboto', sans-serif;
   font-size: 15px;
   margin-bottom: 25px;
-  
 }
+
 .add-to-cart{
   margin-right: 5px;
 }

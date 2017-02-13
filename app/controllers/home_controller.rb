@@ -17,7 +17,8 @@ class HomeController < ApplicationController
     @wishlist = Wishlist.new
 
     if user_signed_in?
-      @cart_items = current_user.cart_items.all
+      @cart_items = current_user.cart_items
+      @wishlists = current_user.wishlists
     end
 
     @brands = Brand.where(status: true).all

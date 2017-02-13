@@ -183,6 +183,58 @@
 .order-table{
   margin-bottom: 0px !important;
 }
+
+
+/*.red{ color: red; }
+.green{ color: green; }*/
+
+.wishlist-icon{
+  position: absolute;
+  z-index: 1;
+  right: 1%;
+  top: 1%;
+}
+
+.wishlist-icon:hover{
+  color: #fe880f;
+}
+
+.wishlist-icon-present{
+  color: #fe880f;
+}
+
+.padding-zero{
+  padding: 0px !important;
+}
+.margin-zero{
+  margin: 0px !important;
+}
+
+.table-border{
+  border: 1px solid #ddd
+}
+
+.margin-top{
+  margin-top: 10px;
+}
+
+#mywishlist{
+  margin-bottom: 100px;
+}
+
+.wishlist-height{
+  min-height: 150px;
+  padding: 10px;
+}
+/*.wishlist-product-name{
+  color: #0066c0 !important;
+  background-color: transparent;
+}
+
+.wishlist-product-name a:hover{
+  color: black !important;
+  text-decoration: underline; 
+}*/
 /*.fa-google-plus{
   text-transform: lowercase !important;
 }*/

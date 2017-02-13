@@ -1,0 +1,5 @@
+
+
+$('#wishlist-status-'+<%=@product.id%>).html("<%= escape_javascript render(:partial => '/wishlists/wishlist', :locals => { product: @product }) %>")
+
+$('#wishlist-product-'+<%= @wishlist.id %>).fadeOut()
