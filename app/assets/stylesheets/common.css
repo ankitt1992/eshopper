@@ -226,6 +226,11 @@
   min-height: 150px;
   padding: 10px;
 }
+
+/*
+.cancel-btn{
+  width: 230px;
+}*/
 /*.wishlist-product-name{
   color: #0066c0 !important;
   background-color: transparent;

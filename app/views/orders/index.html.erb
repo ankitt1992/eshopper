@@ -15,43 +15,70 @@
         <div class="panel-heading order-panel">
           <table class="table order-table">
             <tr>
-              <td>
+              <td class= "col-sm-4" >
                 <p>Order Placed</p> 
                 <p><%= order.created_at.strftime("%d %B %Y") %></p>
               </td>
-              <td>
+              <td class= "col-sm-2">
                 <p>Total</p>
                 <p>&#8377; <%= order.grand_total%></p>
               </td>
-              <td>
+              <td class= "col-sm-3">
                 <p>Ship to</p>
                 <% if order.address.present?%>
                   <p><%= order.address.first_name%> <%= order.address.last_name%> <i class="fa fa-sort-down"></i></p>
                 <% end %>
               </td>
-              <td>
+              <td class= "col-sm-2" >
                 <p>Order-Id # <%= order.id%></p>
                 <p><%= link_to "Order details", order_path(order)%></p>
               </td>
+
+              <td class= "col-sm-2">
+                <% if order.status=="successfull"%>
+                  <%= link_to "Cancel Order", refund_order_path(order),method: :post, class: 'btn btn-default cancel-btn' %>
+                <% elsif order.status =="cancelled"%>
+                  <%= link_to "Order Cancelled",'', class: 'btn btn-default cancel-btn disabled'%>
+                <% end  %>
+              </td>
+              
             </tr>
           </table>
         </div>
 
-        <table class="table table-condensed">
-        <col width="10%">
-        <col width="80%">
-        <% order.order_items.each do |order_item| %>
-          <tbody>
-            <tr>
-              <td><%= image_tag order_item.product.pictures.first.image.preview.url%></td>
-              <td>
-                <div><%= link_to order_item.product.name, product_path(order_item.product)%> </div>
-                <div>&#8377; <%=order_item.product.price%></div>              
-              </td>
-            </tr>
-          </tbody>
-        <% end %>
-        </table>
+        <div>
+          <table class="table table-condensed">
+          <% if order.status=="cancelled"%> 
+            <% if order.payment_transaction.present? && order.payment_transaction.refunded==true %>
+              <tr>
+                <td><h4>Refunded </h4>&#8377; <%= order.payment_transaction.amount %> was sent to your card on date <%= order.payment_transaction.refunded_date %></td>
+              </tr>
+              
+             <% else %>
+              <tr>
+                <th>You refund will be initiated in few days</th>
+              </tr>
+            <% end %>
+          <% end %>
+          </table>
+        </div>
+
+        <div class="panel-body">
+          <table class="table table-condensed">
+            <% order.order_items.each do |order_item| %>
+              <tbody>
+                <tr>
+                  <td class="col-sm-2"><%= image_tag order_item.product.pictures.first.image.preview.url%>
+                  </td>
+                  <td class="col-sm-7">
+                    <div><%= link_to order_item.product.name, product_path(order_item.product)%> </div>
+                    <div>&#8377; <%=order_item.product.price%></div>              
+                  </td>
+                </tr>
+              </tbody>
+            <% end %>
+          </table>
+        </div>
       </div>
     <% end %>      
     </div>

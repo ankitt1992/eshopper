@@ -19,6 +19,7 @@ class BrandsController < ApplicationController
 
     if user_signed_in?
       @cart_items = current_user.cart_items.all
+      @wishlists = current_user.wishlists
     end
   end
 

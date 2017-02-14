@@ -7,10 +7,11 @@ class HomeController < ApplicationController
     @categories = Category.all.where(parent_id: nil)
     @category = Category.first
     if @category.present?
-      @subcategory = @category.subcategories.first
-      if @subcategory.present?
-        @products = @subcategory.products.limit(8)
-      end
+      @products = @category.products.limit(8)
+      # @subcategory = @category.subcategories.first
+      # if @subcategory.present?
+      #   @products = @subcategory.products.limit(8)
+      # end
     end
 
     @cart_item = CartItem.new

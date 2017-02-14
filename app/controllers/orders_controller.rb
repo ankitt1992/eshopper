@@ -63,14 +63,16 @@ class OrdersController < ApplicationController
       :description => 'Rails Stripe customer',
       :currency    => 'inr'
     )
+    @amount = charge[:amount].to_f/100
     @order = Order.find(params[:id])
     if params[:stripeToken].present?
       @cart_items = current_user.cart_items
-      @order.update(status: "successfull", :transaction_id=> params[:stripeToken])
+      @order.update(status: "successfull")
       
       @cart_items.each do |cart_item|
         @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
       end
+      @transaction = PaymentTransaction.create(order_id: @order.id, stripe_token: params[:stripeToken], stripe_email: params[:stripeEmail], stripe_token_type: params[:stripeTokenType], amount: @amount, paid: charge[:paid], charge_id: charge[:id])
       current_user.cart_items.destroy_all
       OrderMailer.order_email(current_user,@amount, @order.id, @order.created_at).deliver_now
     end
@@ -79,6 +81,20 @@ class OrdersController < ApplicationController
     rescue Stripe::CardError => e
       flash[:error] = e.message
       redirect_to payment_order_path
+  end
+
+  def refund
+    @order = Order.find(params[:id])
+    @transaction = @order.payment_transaction
+    @payment_charge = @transaction.charge_id
+    charge = Stripe::Charge.retrieve(@payment_charge)
+    if charge.refund
+      @transaction.update(refunded: charge[:refunded], refunded_date: Time.now.to_date)
+
+      if @order.update(status: "cancelled")
+        redirect_to orders_path
+      end
+    end
   end
 	  
 	private

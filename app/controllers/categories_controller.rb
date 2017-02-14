@@ -5,6 +5,7 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @categories = Category.all
+    @subcategory = Category.subcategories.first
   end
 
   # GET /categories/1
@@ -16,12 +17,13 @@ class CategoriesController < ApplicationController
     if params[:subcategory_id].present?
       @subcategory = Category.find(params['subcategory_id'])
       @products = @subcategory.products
-    else
+    elsif params[:id].present?
       @products = @category.products
     end
     
     if user_signed_in?
-      @cart_items = current_user.cart_items.all
+      @cart_items = current_user.cart_items
+      @wishlists = current_user.wishlists
     end
   end
 

@@ -6,7 +6,7 @@
           <%s.name.gsub!(/:.+:/,'')%>
         <% end %>
         <% navigation_list.order('name ASC').where(status: true).each_with_index do |subcategory, i|%>
-          <li class= <%= 'active' if params[:subcategory_id].to_s == subcategory.id.to_s %> >
+          <li class= <%= 'active'  if params[:subcategory_id].to_s == subcategory.id.to_s %> >
             <%= link_to subcategory.name.gsub(/:.+:/,''), category_path(id: @category.id, subcategory_id: subcategory.id)%>
           </li>
         <% end %>

@@ -20,6 +20,9 @@
             <div class="col-sm-3">
               <div class="product-image-wrapper product_style">
                 <div class="single-products">
+                  <div id="wishlist-status-<%= product.id%>">
+                      <%= render partial: 'wishlists/wishlist', locals:{product: product}%>
+                    </div>
                   <div class="productinfo text-center">
                     <%= link_to product_path(product) do %>
                       <%if product.pictures.present?%>
