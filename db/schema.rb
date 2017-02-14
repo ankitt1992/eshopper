@@ -172,14 +172,11 @@ ActiveRecord::Schema.define(version: 20170214142631) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "order_id"
-    t.string   "stripe_token"
-    t.decimal  "amount"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
     t.string   "stripe_email"
     t.string   "stripe_token_type"
     t.string   "paid"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "charge_id"
     t.boolean  "refunded"
     t.date     "refunded_date"
