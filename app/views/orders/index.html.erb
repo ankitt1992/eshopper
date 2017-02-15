@@ -26,7 +26,9 @@
               <td class= "col-sm-3">
                 <p>Ship to</p>
                 <% if order.address.present?%>
-                  <p><%= order.address.first_name%> <%= order.address.last_name%> <i class="fa fa-sort-down"></i></p>
+                  <p><% @address1 = order.address.address1 %><% @address2 = order.address.address2 %><% @postal_code = order.address.postal_code %>
+                  <a href="#" title="<%= order.address.first_name %> <%= order.address.last_name %>" data-toggle="popover" data-trigger="hover" data-content= "<%= @address1%><%= @address2%><%= @postal_code%>" data-placement="bottom" ><%= order.address.first_name %> <%= order.address.last_name %></a>
+                  <i class="fa fa-sort-down"></i></p>
                 <% end %>
               </td>
               <td class= "col-sm-2" >

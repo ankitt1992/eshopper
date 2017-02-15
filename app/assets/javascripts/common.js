@@ -112,3 +112,8 @@ $(".payment").show()
 submitForms = function(){
   document.getElementById("address_fields").submit();
 }
+
+
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});

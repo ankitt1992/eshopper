@@ -2,7 +2,8 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @orders = current_user.orders.order('created_at DESC')
+    # @orders = current_user.orders.where((status: "successfull" OR (status: "cancelled")).order('created_at DESC')
+      @orders = current_user.orders.where('status =? or status=?', "successfull","cancelled").order('created_at DESC')
   end
 
   def show
@@ -72,7 +73,7 @@ class OrdersController < ApplicationController
       @cart_items.each do |cart_item|
         @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
       end
-      @transaction = PaymentTransaction.create(order_id: @order.id, stripe_token: params[:stripeToken], stripe_email: params[:stripeEmail], stripe_token_type: params[:stripeTokenType], amount: @amount, paid: charge[:paid], charge_id: charge[:id])
+      @transaction = PaymentTransaction.create(order_id: @order.id, stripe_token: params[:stripeToken], stripe_email: params[:stripeEmail], stripe_token_type: params[:stripeTokenType], amount: @amount, paid: charge[:paid], charge_id: charge[:id], refunded: charge[:refunded])
       current_user.cart_items.destroy_all
       OrderMailer.order_email(current_user,@amount, @order.id, @order.created_at).deliver_now
     end
