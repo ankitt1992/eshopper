@@ -14,11 +14,6 @@ class OrdersController < ApplicationController
   end
 
   def new
-    # @cart_items_total = current_user.cart_items.sum(:total) 
-    # @vat = 0.04 * @cart_items_total
-    # @grand_total = @cart_items_total + @vat
-    # @order = current_user.orders.new(address_id: params[:address_id], grand_total: @grand_total, status: "pending")
-    # @order.save
   end
 
 
@@ -68,7 +63,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     if params[:stripeToken].present?
       @cart_items = current_user.cart_items
-      @order.update(status: "successfull")
+      @order.update(status: "successfull", track_status: "ordered")
       
       @cart_items.each do |cart_item|
         @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
@@ -96,6 +91,10 @@ class OrdersController < ApplicationController
         redirect_to orders_path
       end
     end
+  end
+
+  def track
+    @order = Order.find(params[:id])
   end
 	  
 	private

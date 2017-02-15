@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get :payment, on: :member
     post :create_charges, on: :member
     post :refund, on: :member
+    get :track, on: :member
   end
   resources :carts
   devise_for :admins

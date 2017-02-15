@@ -227,10 +227,21 @@
   padding: 10px;
 }
 
-/*
-.cancel-btn{
+
+.track-btn{
   width: 230px;
-}*/
+}
+
+.popover-title{
+  color: black;
+    background: #ffff99;
+}
+.popover-content{
+  color: black;
+    background: #ffff99;
+}
+
+
 /*.wishlist-product-name{
   color: #0066c0 !important;
   background-color: transparent;

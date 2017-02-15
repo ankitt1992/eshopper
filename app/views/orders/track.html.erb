@@ -1,0 +1,48 @@
+<section id="myorders">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li class="active">Track Package</li>
+      </ol>
+    </div>
+
+    <h2>Track Package</h2>
+
+    <div class=" col-sm-offset-1 panel panel-default">
+      <div class="  panel-body">
+        <div class="progress">
+          <% if @order.status=="cancelled"%>
+            <div class="progress-bar progress-bar-danger" role="progressbar" style="width:100%">Cancelled
+              </div>
+          <% else%>
+            <% @d = @order.payment_transaction.created_at%>
+            <% @date = @d+2.days %>
+            <% if @order.track_status=="ordered"%>
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:20%">
+                <span title="Order Placed" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<%= @d.strftime("%d %B %Y")%>">Ordered</span>
+              </div>
+            <% elsif @order.track_status=="shipped"%>
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:20%">
+                <span title="Order Placed" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<%= @order.payment_transaction.created_at.strftime("%d %B %Y")%>">Ordered</span>
+              </div>
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+                <span title="Order Shipped" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<%= @date.strftime("%d %B %Y")%>">Shipped</span>
+              </div>
+            <% elsif @order.track_status=="shipped"%>
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:20%">
+                <span title="Order Placed" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<%= @order.payment_transaction.created_at.strftime("%d %B %Y")%>">Ordered</span>
+              </div>
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+                <span title="Order Shipped" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<%= @date.strftime("%d %B %Y")%>">Shipped</span>
+              </div>
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
+                <span title="Order Delivered" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="<%= @order.payment_transaction.modified_at.strftime("%d %B %Y")%>">Delivered</span>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -72,9 +72,14 @@
                 <tr>
                   <td class="col-sm-2"><%= image_tag order_item.product.pictures.first.image.preview.url%>
                   </td>
-                  <td class="col-sm-7">
+                  <td class="col-sm-8">
                     <div><%= link_to order_item.product.name, product_path(order_item.product)%> </div>
                     <div>&#8377; <%=order_item.product.price%></div>              
+                  </td>
+                  <td class="col-sm-2">
+                    <div>
+                      <%= link_to "Track Package", track_order_path(order), class: 'btn btn-primary track-btn' %>
+                    </div>
                   </td>
                 </tr>
               </tbody>
