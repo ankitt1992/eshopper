@@ -17,16 +17,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-def set_brand
-  @brands = Brand.where(status: true).all
-end
-
-  # def current_order
-  #   if !session[:order_id].nil?
-  #     Order.find(session[:order_id])
-  #   else
-  #     Order.new
-  #   end 
-  # end
+  def set_brand
+    @brands = Brand.where(status: true).all
+  end
 end

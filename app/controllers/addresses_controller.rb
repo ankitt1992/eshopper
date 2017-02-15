@@ -26,7 +26,6 @@ class AddressesController < ApplicationController
   # POST /addresses.json
   def create
     @address = current_user.addresses.new(address_params)
-    # @address2 = current_user.addresses.new(address_params[:ship_to])
     respond_to do |format|
       if @address.save
         format.html { redirect_to check_outs_path, notice: 'Address was successfully created.' }

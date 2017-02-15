@@ -97,23 +97,20 @@
 }
 
 #brand-navigation ul li.active-link>a{
-        background: #f1d74c;
-        color: red;
-        text-decoration: underline;
-        border-bottom: 1px solid blue
-    }
+  background: #f1d74c;
+  color: red;
+  text-decoration: underline;
+  border-bottom: 1px solid blue
+}
 
 .brand_highlight{
   text-decoration: underline;
-  /*color: #FE980F;
-  text-decoration-color: #FE980F;*/
 }
 
 .address_exist{
   line-height: 15px;
   margin-left: 0px !important;
   margin: 0px 0px 10px 25px;
-  
 }
 
 .centerize { 
