@@ -14,7 +14,7 @@
           <% if @category.present? %>
             <%= render partial:'/components/category_tab', locals:{navigation_list: @category.subcategories, category_active: 'active'}%>
           <% end %>
-          <%= render '/components/recommended_items'%>
+          <%#= render '/components/recommended_items'%>
         </div>
       </div>
     </div>

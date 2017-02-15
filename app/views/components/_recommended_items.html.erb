@@ -3,90 +3,35 @@
   
   <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-    
-      <div class="item active"> 
-        <div class="col-sm-4">
-          <div class="product-image-wrapper">
-            <div class="single-products">
-              <div class="productinfo text-center">
-                <img src="/assets/home/recommend1.jpg" alt="" />
-                <h2>$56</h2>
-                <p>Easy Polo Black Edition</p>
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+    <%= @recommended_products.each_slice(3).with_index do |slice, i|%>
+      <div class="item <%= ('active' if i==0) %> "> 
+        <% slice.each_with_index do |recommended_product,j|%>
+          <div class="col-sm-4">
+            <div class="product-image-wrapper">
+              <div class="single-products">
+                <div class="productinfo text-center">
+                  <%= link_to product_path(recommended_product) do %>
+                    <% if recommended_product.pictures.present?%>
+                      <%= image_tag recommended_product.pictures.first.image.url, width: "150px", height: "220px"%>
+                    <% end %>
+                    <!-- <img src="/assets/home/recommend1.jpg" alt="" /> -->
+                    <h2>&#8377; <%= recommended_product.price%></h2>
+                    <p><%= recommended_product.name%></p>
+                  <% end %>
+                  <!-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
+                  <div id="product-cart-status-<%= recommended_product.id%>">
+                    <%= render partial:'/cart_items/product_cart_status', locals:{product: recommended_product}%>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="product-image-wrapper">
-            <div class="single-products">
-              <div class="productinfo text-center">
-                <img src="/assets/home/recommend2.jpg" alt="" />
-                <h2>$56</h2>
-                <p>Easy Polo Black Edition</p>
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="product-image-wrapper">
-            <div class="single-products">
-              <div class="productinfo text-center">
-                <img src="/assets/home/recommend3.jpg" alt="" />
-                <h2>$56</h2>
-                <p>Easy Polo Black Edition</p>
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-              </div>
-              
-            </div>
-          </div>
-        </div>
+        <% end %>
       </div>
+    <% end %>
 
-      <div class="item">  
-        <div class="col-sm-4">
-          <div class="product-image-wrapper">
-            <div class="single-products">
-              <div class="productinfo text-center">
-                <img src="/assets/home/recommend1.jpg" alt="" />
-                <h2>$56</h2>
-                <p>Easy Polo Black Edition</p>
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="product-image-wrapper">
-            <div class="single-products">
-              <div class="productinfo text-center">
-                <img src="/assets/home/recommend2.jpg" alt="" />
-                <h2>$56</h2>
-                <p>Easy Polo Black Edition</p>
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="product-image-wrapper">
-            <div class="single-products">
-              <div class="productinfo text-center">
-                <img src="/assets/home/recommend3.jpg" alt="" />
-                <h2>$56</h2>
-                <p>Easy Polo Black Edition</p>
-                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-              </div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-     <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+      <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
       <i class="fa fa-angle-left"></i>
       </a>
       <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">

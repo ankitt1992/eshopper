@@ -94,7 +94,7 @@ class OrdersController < ApplicationController
   end
 
   def track
-    @order = Order.find(params[:id])
+    # @order = Order.find(params[:id])
   end
 	  
 	private

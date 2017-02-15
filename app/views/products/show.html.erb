@@ -8,16 +8,16 @@
         <div class="product-details"><!--product-details-->
           <div class="col-sm-5">
             <div class="view-product">
-              <%= image_tag @product.pictures.first.image %>
+              <%= image_tag @product.pictures.first.image, id:"product-image" %>
               <h3>ZOOM</h3>
             </div>
             <div id="similar-product" class="carousel slide" data-ride="carousel">
                 <!-- Wrapper for slides -->
               <div class="carousel-inner">
-                <% @similar_products.each_slice(3).with_index do |slice, i|%>
+                <% @similar_pictures.each_slice(3).with_index do |slice, i|%>
                   <div class="item <%= ('active' if i==0) %>">
-                    <% slice.each_with_index do |product,j|%>
-                      <%=link_to image_tag(product.pictures.first.image, class: (j == 0 ? "product_left_margin" : "product_no_left_margin")), product_path(product) %>
+                    <% slice.each_with_index do |picture,j|%>
+                      <%= image_tag(picture.image, class: (j == 0 ? "product_left_margin" : "product_no_left_margin"),id:"large-image-#{picture.id}", onclick: "show_image('#{picture.image.url}')")%>
                     <% end %>
                   </div>
                 <% end %>
