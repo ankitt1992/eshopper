@@ -15,7 +15,7 @@
     <p><b>Order Date:</b> <%= @order_date %></p>
     <p><b>Order Total:</b>&#8377; <%= @amount %></p>
     <p>
-      To check your order summary click here <%= link_to('https://eshopper3.herokuapp.com/orders/#{@order_id}') %>
+      To check your order summary click here https://eshopper3.herokuapp.com/orders/<%= @order_id%>
     </p>
     <p>Thanks for ordering and have a great day!</p>
   </body>
