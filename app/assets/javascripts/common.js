@@ -6,7 +6,7 @@ $(document).ready(function(){
 
 
 $(document).ready(function(){
-$("#1").removeClass('in')
+  $("#1").removeClass('in')
 });
 
 

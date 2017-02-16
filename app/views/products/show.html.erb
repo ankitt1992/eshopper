@@ -7,6 +7,9 @@
       <div class="col-sm-9 padding-right">
         <div class="product-details"><!--product-details-->
           <div class="col-sm-5">
+            <div id="wishlist-status-<%= @product.id%>">
+              <%= render partial: 'wishlists/wishlist', locals:{product: @product}%>
+            </div>
             <div class="view-product">
               <%= image_tag @product.pictures.first.image, id:"product-image" %>
               <h3>ZOOM</h3>
