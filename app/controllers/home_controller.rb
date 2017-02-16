@@ -7,7 +7,7 @@ class HomeController < ApplicationController
     @categories = Category.all.where(parent_id: nil)
     @category = Category.first
     if @category.present?
-      @products = @category.products.limit(8)
+      @products = @category.products
       # @subcategory = @category.subcategories.first
       # if @subcategory.present?
       #   @products = @subcategory.products.limit(8)
