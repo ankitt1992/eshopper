@@ -5,10 +5,6 @@ $(document).ready(function(){
   });
 
 
-
-
-
-
 $(document).ready(function(){
 $("#1").removeClass('in')
 });
@@ -17,9 +13,26 @@ $("#1").removeClass('in')
 $(document).ready(function(){
   $(".alert" ).fadeOut(12000)
 });
+
+
 $(document).ready(function(){
   $(".alert-success" ).fadeOut(12000)
 });
+$(document).ready(function(){
+  $(document).on("click",".link_to_add",function(){
+  $(".payment").show()
+  });
+});
+
+submitForms = function(){
+  document.getElementById("address_fields").submit();
+}
+
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover(); 
+});
+
+
 // $(document).ready(function(){
 //   $(".alert-danger" ).fadeOut(5000)
 // });
@@ -62,12 +75,6 @@ $(document).ready(function(){
 //   });
 // });
 
-
-$(document).ready(function(){
-  $(document).on("click",".link_to_add",function(){
-  $(".payment").show()
-  });
-});
 
 
   // console.log(picture_url)
@@ -121,11 +128,6 @@ $(document).ready(function(){
 // });
 
 
-submitForms = function(){
-  document.getElementById("address_fields").submit();
-}
-
-
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
-});
+// $(document).ready(function(){
+//     $('[data-toggle="popover"]').popover();   
+// });
