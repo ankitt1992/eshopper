@@ -64,7 +64,7 @@ class WishlistsController < ApplicationController
     @wishlist = Wishlist.find_by(product_id: params[:id])
     @wishlist.destroy
     respond_to do |format|
-      format.html { redirect_to wishlists_url, notice: 'Wishlist was successfully destroyed.' }
+      format.html { redirect_to wishlists_url, notice: 'Wishlist was successfully deleted.' }
       format.json { head :no_content }
       format.js
     end

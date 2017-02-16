@@ -1,5 +1,8 @@
-
-
 $('#wishlist-status-'+<%=@product.id%>).html("<%= escape_javascript render(:partial => '/wishlists/wishlist', :locals => { product: @product }) %>")
 
-$('#wishlist-product-'+<%= @wishlist.id %>).fadeOut()
+<% if @wishlists.count < 1 %>
+  $('#wishlist-product-'+ <%= @wishlist.id %>).fadeOut()
+  $('.collapse').show()
+<% else%>
+  $('#wishlist-product-'+ <%= @wishlist.id %>).fadeOut()
+<% end %>

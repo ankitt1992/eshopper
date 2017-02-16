@@ -3,8 +3,9 @@
   $('#do_action').fadeOut()
   $('.collapse').show()
 <% else %>
-  $('#<%= @cart_item.id%>').hide()
+  $('#<%= @cart_item.id%>').fadeOut()
 <% end %>
+
 $('#cart_counts').html('('+<%= @cart_items.count%>+')')
 $('#cart_item_total_'+<%= @cart_item.id %>).html('&#8377;'+ <%= @cart_item.total %>.toFixed(1))
 $('#vat').html('&#8377; <%= @vat%>')

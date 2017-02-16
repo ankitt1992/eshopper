@@ -10,7 +10,6 @@
       <div class="col-sm-9 padding-right">
         <%#= render '/components/features_items'%>
         <%= render partial:'/components/brand_category_tab', locals:{navigation_list: @brand.categories.where('parent_id is not null')}%>
-        <%= render '/components/recommended_items'%>
       </div>
     </div>
   </div>

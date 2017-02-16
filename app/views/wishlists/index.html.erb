@@ -36,7 +36,7 @@
                       <% end %>
                     <% end %>
                   <% end %>
-                    <p class= "margin-top"><%= link_to  wishlist_path(wishlist.product.id), method: :delete, data: { confirm: 'Are you sure?' },remote: true do %>
+                    <p class= "margin-top"><%= link_to  wishlist_path(wishlist.product.id), method: :delete, data: { confirm: 'Are you sure, to delete wishlist?' },remote: true do %>
                         <i class="fa fa-trash"> Remove</i>
                       <% end %>
                     </p>
@@ -46,17 +46,30 @@
             </table>
           </div>
         <% end %>
-      <% else  %>
-        <div class="col-sm-6 padding-zero">
-          <table class="table table-border margin-zero wishlist-height">
-            <tbody>
+        <div class="panel panel-default collapse">
+          <div class="panel-body order-panel">
+            <table class="table order-table">
               <tr>
-                <td>
-                  <p>Empty Wishlists</p>
+                <td class= "col-sm-4" >
+                  <center> <h4>No Wishlist found</h4>
+                  <%= link_to "<< Continue shopping >>", root_url, class: "btn btn-primary"%></center>
                 </td>
               </tr>
-            </tbody>
-          </table>
+            </table>
+          </div>
+        </div>
+      <% else  %>
+        <div class="panel panel-default">
+          <div class="panel-body order-panel">
+            <table class="table order-table">
+              <tr>
+                <td class= "col-sm-4" >
+                  <center> <h4>No Wishlist found</h4>
+                  <%= link_to "<< Continue shopping >>", root_url, class: "btn btn-primary"%></center>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       <% end %>
     </div>

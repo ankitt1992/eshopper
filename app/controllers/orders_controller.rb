@@ -2,8 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # @orders = current_user.orders.where((status: "successfull" OR (status: "cancelled")).order('created_at DESC')
-      @orders = current_user.orders.where('status =? or status=?', "successfull","cancelled").order('created_at DESC')
+    @orders = current_user.orders.where('status =? or status=?', "successfull","cancelled").order('created_at DESC')
   end
 
   def show
@@ -96,9 +95,9 @@ class OrdersController < ApplicationController
   def track
     @order = Order.find(params[:id])
   end
-	  
-	private
-	def order_params
+    
+  private
+  def order_params
 		params.require(:order).permit(:address_id, :status, :grand_total)
 	end
 end

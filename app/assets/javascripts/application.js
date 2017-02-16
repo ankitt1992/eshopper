@@ -17,3 +17,8 @@
 //= require social-share-button
 //= require country_state_select
 //= require_tree .
+
+
+function show_image(picture_url){
+  $('#product-image').attr('src', picture_url)
+}

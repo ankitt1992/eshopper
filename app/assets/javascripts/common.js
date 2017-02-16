@@ -69,14 +69,13 @@ $(document).ready(function(){
   });
 });
 
-function show_image(picture_url){
-  $('#product-image').attr('src', picture_url)
+
   // console.log(picture_url)
 //     // $(document).on('click','#large-image-'+ picture_id, function() {
 //       $('#picture-image').css()
 //     }
     
-  }
+
 
 // show_
 //     $('#product-image').css('background-image', 'url(http://placehold.it/200x200/ff0000)');
