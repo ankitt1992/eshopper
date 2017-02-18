@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :contacts
   resources :wishlists
   resources :order_items
   resources :orders do 
@@ -28,6 +29,8 @@ Rails.application.routes.draw do
   get '/check_outs', to: 'cart_items#check_out'
   get '/review_and_payment', to: 'cart_items#review_and_payment'
   resources :charges
+  get '*unmatched_route', to: 'application#not_found'
+
   root 'home#index'
 
 
