@@ -10,9 +10,13 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
-    @order_items = @order.order_items
-    @amount = @order.grand_total
-    @address = Address.find(@order.address_id)
+    if current_user.orders.pluck('id').include?(@order.id)
+      @order_items = @order.order_items
+      @amount = @order.grand_total
+      @address = Address.find(@order.address_id)
+    else
+      redirect_to root_url, alert: "You are not authorized to see this record"
+    end
   end
 
   def new

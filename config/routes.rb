@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :carts
   devise_for :admins
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # devise_for :users
@@ -29,7 +30,7 @@ Rails.application.routes.draw do
   get '/check_outs', to: 'cart_items#check_out'
   get '/review_and_payment', to: 'cart_items#review_and_payment'
   resources :charges
-  get '*unmatched_route', to: 'application#not_found'
+  get '*unmatched_route', to: 'application#routing_error_response'
 
   root 'home#index'
 

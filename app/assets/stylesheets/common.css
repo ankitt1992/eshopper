@@ -242,6 +242,11 @@
   margin: 100px 0px 100px 0px;
 }
 
+.reply-field {
+    background-color: white !important;
+    width: 550px !important;
+}
+
 /*.wishlist-product-name{
   color: #0066c0 !important;
   background-color: transparent;

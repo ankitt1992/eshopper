@@ -10,14 +10,14 @@ $(document).ready(function(){
 });
 
 
-$(document).ready(function(){
-  $(".alert" ).fadeOut(12000)
-});
+// $(document).ready(function(){
+//   $(".alert" ).fadeOut(12000)
+// });
 
 
-$(document).ready(function(){
-  $(".alert-success" ).fadeOut(12000)
-});
+// $(document).ready(function(){
+//   $(".alert-success" ).fadeOut(12000)
+// });
 $(document).ready(function(){
   $(document).on("click",".link_to_add",function(){
   $(".payment").show()

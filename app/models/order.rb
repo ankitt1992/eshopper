@@ -3,6 +3,9 @@ class Order < ActiveRecord::Base
   has_many :order_items
   belongs_to :address
   has_one :payment_transaction
+
+
+  
   # has_many :addresses
 
   # before_save :update_sub_total
@@ -15,4 +18,12 @@ class Order < ActiveRecord::Base
   #   binding.pry
   #   self[:sub_total] = sub_total
   # end
+
+  def track_status_enum
+    ['ordered', 'shipped', 'delivered']
+  end
+
+  def status_enum
+    ['cancelled', 'successful']
+  end
 end

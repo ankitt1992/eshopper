@@ -1,33 +1,58 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <% @contacts.each do |contact| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-sm-2">Name</th>
+              <th class="col-sm-3">Email</th>
+              <th class="col-sm-3">Subject</th>
+              <th class="col-sm-1"></th>
+            </tr>
+          </thead>
 
-<h1>Listing Contacts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Subject</th>
-      <th>Message</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= contact.name %></td>
-        <td><%= contact.email %></td>
-        <td><%= contact.subject %></td>
-        <td><%= contact.message %></td>
-        <td><%= link_to 'Show', contact %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Contact', new_contact_path %>
+          <tbody>
+            <tr>
+              <td><%= contact.name %></td>
+              <td><%= contact.email %></td>
+              <td><%= contact.subject %></td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-body">
+        <table>
+          <tbody>
+            <tr><th>Message</th></tr>
+            <tr>
+              <td><%= contact.message %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel-footer">
+        <table>
+          <tbody>
+          <%unless contact.reply.present? %>
+            <tr>
+              <td>
+              <%= form_for contact, method: :put do |f| %>
+                <%= f.text_area :reply ,class: "reply-field"%>
+                <%= f.submit "Reply",class: "btn btn-primary"%>
+              <% end %>
+              </td>
+            </tr>
+          <% else %>
+            <tr><th>Reply</th></tr>
+            <tr>
+              <td><%= contact.reply %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

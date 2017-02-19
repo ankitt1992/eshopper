@@ -43,7 +43,8 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+        UserMailer.reply_email(@contact).deliver
+        format.html { redirect_to contacts_path, notice: 'Email has been sent.' }
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { render :edit }
@@ -62,6 +63,9 @@ class ContactsController < ApplicationController
     end
   end
 
+  def reply
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
@@ -70,6 +74,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:name, :email, :subject, :message)
+      params.require(:contact).permit(:name, :email, :subject, :message, :reply)
     end
 end
