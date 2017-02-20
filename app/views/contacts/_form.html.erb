@@ -14,7 +14,7 @@
 
 
   <div class="form-group col-md-6">
-    <%= f.text_field :name, class: "form-control", value: "#{current_user.first_name+" " + current_user.last_name  if current_user.present?}", placeholder: "Name", required: "required" %>
+    <%= f.text_field :name, class: "form-control", value: "#{current_user.first_name if  current_user.present?}", placeholder: "Name", required: "required" %>
   </div>
   <div class="form-group col-md-6">
     <%= f.text_field :email, class: "form-control", value: "#{current_user.email if current_user.present?}", placeholder: "Email", required: "required" %>

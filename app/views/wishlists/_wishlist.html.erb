@@ -1,5 +1,5 @@
 <% if @wishlists.present? &&  @wishlists.pluck('product_id').include?(product.id) %>
-  <%= link_to wishlist_path(product.id), method: :delete, remote: true, title: 'Remove from wishlist' do %>
+  <%= link_to wishlist_path(current_user.wishlists.find_by(product_id: product.id)), method: :delete, remote: true, title: 'Remove from wishlist' do %>
     <i class="fa fa-heart fa-lg wishlist-icon-present wishlist-icon "></i>
   <% end %>
 <% else %>

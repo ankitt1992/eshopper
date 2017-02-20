@@ -36,7 +36,7 @@
                       <% end %>
                     <% end %>
                   <% end %>
-                    <p class= "margin-top"><%= link_to  wishlist_path(wishlist.product.id), method: :delete, data: { confirm: 'Are you sure, to delete wishlist?' },remote: true do %>
+                    <p class= "margin-top"><%= link_to  wishlist_path(wishlist), method: :delete, data: { confirm: 'Are you sure, to delete wishlist?' },remote: true do %>
                         <i class="fa fa-trash"> Remove</i>
                       <% end %>
                     </p>

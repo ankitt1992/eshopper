@@ -20,7 +20,7 @@
                 <% @similar_pictures.each_slice(3).with_index do |slice, i|%>
                   <div class="item <%= ('active' if i==0) %>">
                     <% slice.each_with_index do |picture,j|%>
-                      <%= image_tag(picture.image, class: (j == 0 ? "product_left_margin" : "product_no_left_margin"),id:"large-image-#{picture.id}", onclick: "show_image('#{picture.image.url}')")%>
+                      <%= image_tag(picture.image, class: (j == 0 ? "product_left_margin" : "product_no_left_margin"),id:"large-image-#{picture.id}", onmouseover: "show_image('#{picture.image.url}')")%>
                     <% end %>
                   </div>
                 <% end %>

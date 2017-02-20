@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170219085241) do
+ActiveRecord::Schema.define(version: 20170220101403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,14 @@ ActiveRecord::Schema.define(version: 20170219085241) do
     t.text     "reply"
   end
 
+  create_table "coupons", force: :cascade do |t|
+    t.string   "code"
+    t.decimal  "percent_off"
+    t.integer  "no_of_uses"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.integer  "quantity"
     t.integer  "order_id"
@@ -212,6 +220,14 @@ ActiveRecord::Schema.define(version: 20170219085241) do
     t.string   "charge_id"
     t.boolean  "refunded"
     t.date     "refunded_date"
+  end
+
+  create_table "used_coupons", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.integer  "coupon_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

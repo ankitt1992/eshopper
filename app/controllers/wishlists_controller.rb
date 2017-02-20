@@ -28,7 +28,7 @@ class WishlistsController < ApplicationController
   # POST /wishlists.json
   def create
     @wishlists = current_user.wishlists
-    @wishlist = current_user.wishlists.new(product_id: params[:product_id])
+    @wishlist = current_user.wishlists.find_or_initialize_by(product_id: params[:product_id])
     @product = @wishlist.product
     respond_to do |format|
       if @wishlist.save
@@ -60,8 +60,8 @@ class WishlistsController < ApplicationController
   # DELETE /wishlists/1.json
   def destroy
     @wishlists = current_user.wishlists
-    @product = Product.find(params[:id])
-    @wishlist = Wishlist.find_by(product_id: params[:id])
+    @wishlist = Wishlist.find(params[:id])
+    @product = @wishlist.product
     @wishlist.destroy
     respond_to do |format|
       format.html { redirect_to wishlists_url, notice: 'Wishlist was successfully deleted.' }

@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   has_many :order_items
   belongs_to :address
   has_one :payment_transaction
+  belongs_to :coupon
 
 
   
