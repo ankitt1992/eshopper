@@ -1,0 +1,16 @@
+<% unless session[:coupon] %>
+  <%= form_tag('/apply_coupon', method: :post, remote: true) do %>
+    <li>
+      <%= text_field_tag :code%>
+    </li>
+    <li><span class="coupon_invalid_message text-danger"></span></li>
+    <li>
+    <%= submit_tag "Apply Coupon", class: "btn btn-default check_out"%>
+    </li>
+
+  <% end %>
+<% else %>
+<li>
+  <b><%= session[:coupon] %></b><span class="text-success coupon-successfull"> Coupon successfully applied  </span><%=link_to 'remove_coupon', data: {confirm: "Are you sure to remove coupon"}, remote: true , title: "Remove coupon" do %><i class="fa fa-times"></i><% end %>
+</li>
+<% end %>

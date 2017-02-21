@@ -79,6 +79,53 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def apply_coupon
+    if params[:code].present?
+      if Coupon.pluck(:code).include?(params[:code])
+        @coupon = Coupon.find_by(code: params[:code])
+        unless UsedCoupon.find_by(coupon_id: @coupon.id ).present? && UsedCoupon.find_by(coupon_id: @coupon.id ).user_id == current_user.id
+          session[:coupon] = params[:code]
+          @coupon = Coupon.find_by(code: session[:coupon])
+          set_cart_item_detail
+          @coupon_message = "Coupon applied successfully"
+
+          respond_to do |format|
+            format.js
+          end
+        else
+          set_cart_item_detail
+          @coupon_invalid_message = "Coupon already used "
+        end
+      else
+        set_cart_item_detail
+        @coupon_invalid_message = "Invalid Coupon"
+        respond_to do |format|
+          format.js
+        end
+      end
+    else
+      set_cart_item_detail
+      @coupon_invalid_message = "Please enter coupon code"
+      
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+    # redirect_to cart_items_path
+    
+
+  def remove_coupon
+    if session[:coupon].present?
+      session[:coupon] = nil
+      set_cart_item_detail
+      
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
   private
     def set_cart_item
       @cart_item = CartItem.find(params[:id])
@@ -98,12 +145,13 @@ class CartItemsController < ApplicationController
 
     def set_cart_item_detail
       @cart_items = current_user.cart_items
-
-      val = CartItem.calculate_sum(@cart_items)
+      val = CartItem.calculate_sum(@cart_items, session[:coupon])
       @cart_items_total = val[0]
       @vat = val[1]
       @shipping_cost = val[2]
       @grand_total = val[3]
+      @discount_amount = val[4]
+
       # @cart_items_total = @cart_items.sum(:total)
       # @vat = 0.04 * @cart_items_total
       # if @cart_items_total < 500

@@ -69,8 +69,15 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     if params[:stripeToken].present?
       @cart_items = current_user.cart_items
-      @order.update(status: "successfull", track_status: "ordered")
-      
+      if session[:coupon].present?
+        @coupon = Coupon.find_by(code: session[:coupon])
+        @coupon.no_of_uses = @coupon.no_of_uses.to_i + 1
+        @coupon_id = @coupon.id
+        @coupon.save
+      end
+      @order.update(status: "successfull", track_status: "ordered", coupon_id: @coupon_id)
+      UsedCoupon.create(user_id: current_user.id, coupon_id: @coupon_id, order_id: @order.id)
+      session[:coupon] = nil
       @cart_items.each do |cart_item|
         @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
       end

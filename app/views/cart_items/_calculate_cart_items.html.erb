@@ -1,0 +1,17 @@
+<ul>
+  <li>Cart Sub Total <span id="cart_sub_total">&#8377; <%= @cart_items_total %></span></li>
+  <li>Discount<span id="discount">&#8377; <%= @discount_amount %></span></li>
+  <li>VAT<span id="vat">&#8377; <%= @vat %></span></li>
+  <li>Shipping Cost 
+    <span id="shipping-cost">
+      <% if @cart_items_total<500%>
+        &#8377; <%= @shipping_cost %>
+      <% else %>
+        <%= @shipping_cost %>
+      <% end %>
+    </span>
+  </li>
+  <li>Total <span id="cart_total">&#8377; <%= @grand_total %></span></li>
+</ul>
+<%= link_to 'Update', '#', class: "btn btn-default update" %>
+<%= link_to 'Check Out', check_outs_path, class: "btn btn-default check_out" %>

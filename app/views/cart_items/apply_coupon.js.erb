@@ -1,0 +1,3 @@
+$('.total_area').html("<%= escape_javascript render(:partial => '/cart_items/calculate_cart_items') %>")
+$('#coupon_status').html("<%= escape_javascript render(:partial => '/cart_items/coupon_status')%>")
+$('.coupon_invalid_message').html("<%= @coupon_invalid_message %>")

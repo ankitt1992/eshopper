@@ -8,7 +8,6 @@ Rails.application.routes.draw do
     post :refund, on: :member
     get :track, on: :member
   end
-  resources :carts
   devise_for :admins
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -29,6 +28,9 @@ Rails.application.routes.draw do
   # resources :order_items, only: [:create, :update, :destroy]
   get '/check_outs', to: 'cart_items#check_out'
   get '/review_and_payment', to: 'cart_items#review_and_payment'
+  post '/apply_coupon', to: 'cart_items#apply_coupon'
+  get '/remove_coupon', to: 'cart_items#remove_coupon'
+
   resources :charges
   get '*unmatched_route', to: 'application#routing_error_response'
 
