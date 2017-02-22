@@ -1,8 +1,8 @@
 <table class="table table-condensed " id="complete-cart-items">
   <col width="13%">
   <col width="27%">
-  <col width="7%">
-  <col width="20%">
+  <col width="10%">
+  <col width="17%">
   <col width="12%">
   <col width="8%">
   <center><p class="collapse">
@@ -73,39 +73,34 @@
             <table class="table table-condensed total-result">
               <tr>
                 <td>Cart Sub Total</td>
-                <td><span id="cart_sub_total">&#8377; <%= @cart_items_total %></span></td>
+                <td>&#8377; <%= @cart_items_total %></td>
+              </tr>
+              <tr>
+                <td>Discount</td>
+                <td class="text-danger">- &#8377; <%= @discount_amount%></td>
               </tr>
               <tr>
                 <td>VAT</td>
-                <td><span id="vat">&#8377; <%= @vat %></span></td>
+                <td>&#8377; <%= @vat %></span></td>
               </tr>
               <tr class="shipping-cost">
                 <td>Shipping Cost</td>
                 <td> 
-                  <span id="shipping-cost">
-                    <% if @cart_items_total<500%>
-                      &#8377; <%= @shipping_cost %>
-                    <% else %>
-                      <%= @shipping_cost %>
-                    <% end %>
-                  </span>
+                  <% if @cart_items_total<500%>
+                    &#8377; <%= @shipping_cost %>
+                  <% else %>
+                    <%= @shipping_cost %>
+                  <% end %>
                 </td>                  
               </tr>
               <tr>
-                <td>Total</td>
-                <td><span id="cart_total">&#8377; <%= @grand_total %></span></td>
+                <td><b>Total</b></td>
+                <td><b>&#8377; <%= @grand_total %></b></td></b>
               </tr>
             </table>
           </td>
         </tr>
       <% end %>
-          <!-- <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td align="center" class="cart_price"><b>Total</b></td>
-            <td><b><p class="cart_total_price">&#8377;<%= @cart_items_total %></p></b></td>
-          </tr> -->
       <% end %>
     </tbody>
 </table>

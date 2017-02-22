@@ -16,20 +16,15 @@
       </div>
 
       <div class="centerize">
-        <!-- <input type="button" value="Pay with Stripe" class="btn btn-primary", onclick="" /> -->
-        <%#= button_to "Pay with stripe", new_charge_path%>
-        <%#if current_user.cart_items.present?%>
-          <%= form_for @order, :url => orders_path(@order) do |f| %>
-            <%= f.hidden_field :address_id, value: params[:address_id]%>
-            <%= f.hidden_field :status, value: "pending"%>
-            <%= f.hidden_field :grand_total, value: @grand_total%>
-            <%= link_to '<< Continue shopping >>', root_url, class:"btn btn-primary"%>
-            <%= f.submit "Continue to pay", class: "btn btn-primary" %>
-
-          <% end %>
-
-        <%# end%>
-        <%#= link_to 'Continue to pay', new_order_path(address_id: params[:address_id]), class: "btn btn-primary"%>
+        <%= form_for @order, :url => orders_path(@order) do |f| %>
+          <%= f.hidden_field :address_id, value: params[:address_id]%>
+          <%= f.hidden_field :status, value: "pending"%>
+          <%= f.hidden_field :grand_total, value: @grand_total%>
+          <%= f.hidden_field :shipping_charges, value: @shipping_charges%>
+          <%= f.hidden_field :discount_amount, value: @discount_amount%>
+          <%= link_to '<< Continue shopping >>', root_url, class:"btn btn-primary"%>
+          <%= f.submit "Continue to pay", class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   </div>

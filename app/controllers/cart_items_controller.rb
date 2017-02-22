@@ -28,16 +28,7 @@ class CartItemsController < ApplicationController
       @cart_item.quantity = params[:cart_item][:quantity]
     end
     @cart_item.save
-
     set_cart_item_detail
-
-    # if @cart_items_total < 500 && @cart_items_total > 0
-    #   @shipping_cost = 40.to_f
-    #   @grand_total = @cart_items_total + @vat + @shipping_cost
-    # else
-    #   @shipping_cost = 'Free'
-    #   @grand_total = @cart_items_total + @vat
-    # end
 
     respond_to do |format|
       if @cart_item.update(cart_update_params)
@@ -55,9 +46,6 @@ class CartItemsController < ApplicationController
     @cart_items = current_user.cart_items.all
     @cart_item.destroy
     set_cart_item_detail
-    # @cart_items_total = current_user.cart_items.sum(:total) 
-    # @vat = 0.04 * @cart_items_total
-    # @grand_total = @cart_items_total + @vat
 
     respond_to do |format|
       format.html { redirect_to cart_items_url, notice: 'Cart item was successfully removed.' }
@@ -83,7 +71,7 @@ class CartItemsController < ApplicationController
     if params[:code].present?
       if Coupon.pluck(:code).include?(params[:code])
         @coupon = Coupon.find_by(code: params[:code])
-        unless UsedCoupon.find_by(coupon_id: @coupon.id ).present? && UsedCoupon.find_by(coupon_id: @coupon.id ).user_id == current_user.id
+        unless UsedCoupon.find_by(coupon_id: @coupon.id, user_id: current_user.id).present?
           session[:coupon] = params[:code]
           @coupon = Coupon.find_by(code: session[:coupon])
           set_cart_item_detail
@@ -144,23 +132,11 @@ class CartItemsController < ApplicationController
     end
 
     def set_cart_item_detail
-      @cart_items = current_user.cart_items
-      val = CartItem.calculate_sum(@cart_items, session[:coupon])
+      val = current_user.cart_items.calculate_sum(session[:coupon])
       @cart_items_total = val[0]
       @vat = val[1]
       @shipping_cost = val[2]
       @grand_total = val[3]
       @discount_amount = val[4]
-
-      # @cart_items_total = @cart_items.sum(:total)
-      # @vat = 0.04 * @cart_items_total
-      # if @cart_items_total < 500
-      #   @shipping_cost = 40.to_f
-      #   @grand_total = @cart_items_total + @vat + @shipping_cost
-      # else
-      #   @shipping_cost = 'Free'
-      #   @grand_total = @cart_items_total + @vat
-      # end
-      # @cart_item = CartItem.new
     end
 end

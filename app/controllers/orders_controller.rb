@@ -24,9 +24,10 @@ class OrdersController < ApplicationController
 
 
   def create
+    binding.pry
     @order = current_user.orders.find_by(status: "pending")
     if @order.present?
-      if @order.update(grand_total: params[:order][:grand_total])
+      if @order.update(grand_total: params[:order][:grand_total], shipping_charges: params[:order][:shipping_charges], discount_amount: params[:order][:discount_amount])
         redirect_to payment_order_path(@order)
       end
     else

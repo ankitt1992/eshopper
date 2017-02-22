@@ -7,32 +7,6 @@
       </ol>
     </div>
 
-    <!-- <div class="login">
-      <div class="step-one">
-          <h2 class="heading">Step 1: User Login</h2>
-      </div>
-        
-      <div class="checkout-options">
-        <h3>New User</h3>
-        <p>Checkout options</p>
-        <ul class="nav">
-          <li>
-            <label><input type="checkbox"> Register Account</label>
-          </li>
-          <li>
-            <label><input type="checkbox"> Guest Checkout</label>
-          </li>
-          <li>
-            <a href=""><i class="fa fa-times"></i>Cancel</a>
-          </li>
-        </ul>
-      </div> --><!--/checkout-options-->
-
-      <!-- <div class="register-req">
-        <p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
-      </div> --><!--/register-req-->
-    <!-- </div> -->
-
     <div class="addresses">
       <div class="step-one">
         <h2 class="heading">Step 1: Address Details </h2>
@@ -60,7 +34,6 @@
                   <%= link_to edit_address_path(address), class:"btn btn-default ",remote: true do %>
                   <i class="fa fa-edit"> Edit</i>
                   <% end %>
-                  <%#= link_to address_path(address), method: :delete,class:" address-delete-btn btn btn-default",data: {confirm: 'Are you sure?'} do %>
                   <%= link_to address_path(address, status: 'delete'), method: :put ,class:" address-delete-btn btn btn-default",data: {confirm: 'Are you sure?'} do %>
                   <i class="fa fa-trash"> Delete</i>
                   <% end %>
