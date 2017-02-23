@@ -8,7 +8,7 @@
               <th class="col-sm-2">Name</th>
               <th class="col-sm-3">Email</th>
               <th class="col-sm-3">Subject</th>
-              <th class="col-sm-1"></th>
+              <th class="col-sm-1">Date</th>
             </tr>
           </thead>
 
@@ -17,7 +17,7 @@
               <td><%= contact.name %></td>
               <td><%= contact.email %></td>
               <td><%= contact.subject %></td>
-              
+              <td><%= contact.created_at.strftime("%d %B %Y")%></td>
             </tr>
           </tbody>
         </table>
