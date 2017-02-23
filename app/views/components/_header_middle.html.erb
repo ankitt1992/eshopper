@@ -8,10 +8,6 @@
           </div>
           <div class="col-sm-3">
             <div class=" pull-right">
-              <%#= form_tag  :method => 'get' do %>
-              <%#= text_field_tag :search, params[:search],class:'search_box form' %>
-              <%#= submit_tag "Search",class:'btn btn-default', :name => nil %>
-            <%# end %>
             </div>
           </div>
           <div class="col-sm-6">
@@ -19,27 +15,34 @@
               <ul class="nav navbar-nav">
                 <li class="dropdown"><a href="#"><i class="fa fa-user"></i> Account</a>
                   <ul role="menu" class="sub-menu ">
-                      <li><%= link_to orders_path do %>
-                        <i class="fa fa-reorder" aria-hidden="true"> My Orders</i>
-                        <% end %>
-                      </li>
-                      <li><%= link_to wishlists_path do %>
-                        <i class="fa fa-heart" aria-hidden="true"> My Wishlists</i>
-                        <% end %>
-                      </li>
-                      <% if @cart_items.present? && @cart_items.count>0 %>
-                        <li><%= link_to check_outs_path do %>
+                    <li><%= link_to orders_path do %>
+                      <i class="fa fa-reorder" aria-hidden="true"> My Orders</i>
+                      <% end %>
+                    </li>
+                    <li><%= link_to wishlists_path do %>
+                      <i class="fa fa-heart" aria-hidden="true"> My Wishlists</i>
+                      <% end %>
+                    </li>
+                    <% if @cart_items.present? && @cart_items.count>0 %>
+                      <li>
+                        <%= link_to check_outs_path do %>
                           <i class="fa fa-check" aria-hidden="true"> Checkout</i>
                         <% end %>
-                        </li> 
-                      <% end %>
-                    </ul>
+                      </li> 
+                    <% end %>
+                    <% if user_signed_in? %>
+                      <li>
+                        <%= link_to edit_user_registration_path do %>
+                          <i class="fa fa-edit" aria-hidden="true"> Edit profile</i>
+                        <% end %>
+                      </li>
+                    <% end %>
+                  </ul>
                 </li>
                 <li><%= link_to  wishlists_path do %>
                   <i class="fa fa-star">Wishlist</i>
                   <% end %>
                 </li>
-                <!-- <li><a href="#"><i class="fa fa-crosshairs"></i> Checkout</a></li> -->
                 <li>
                   <%= link_to cart_items_path, class: "" do %>
                     <i class="fa fa-shopping-cart"> Cart

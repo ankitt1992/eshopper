@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-body">
       <div class="row new_address ">
-        <%= form_for @address, :html => { :id => "address_fields" } do |f| %>
+        <%= form_for @address, :html => { :id => "address_fields" }, remote: true do |f| %>
           <div class="col-sm-12">
             <div class="bill-to">
               <div class="form-one form-two modal-form">

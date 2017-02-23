@@ -2,12 +2,21 @@ $(document).ready(function(){
   $("div[id^='cart-item-count]'").blur(function(){
   $("form.form_class").submit();
   });
+
+  $(document).on("click",".link_to_add",function(){
+  $(".payment").show()
   });
 
+  submitForms = function(){
+    document.getElementById("address_fields").submit();
+  }
 
-$(document).ready(function(){
-  $("#1").removeClass('in')
+  $('[data-toggle="popover"]').popover(); 
 });
+
+// $(document).ready(function(){
+//   $("#1").removeClass('in')
+// });
 
 
 // $(document).ready(function(){
@@ -18,20 +27,6 @@ $(document).ready(function(){
 // $(document).ready(function(){
 //   $(".alert-success" ).fadeOut(12000)
 // });
-$(document).ready(function(){
-  $(document).on("click",".link_to_add",function(){
-  $(".payment").show()
-  });
-});
-
-submitForms = function(){
-  document.getElementById("address_fields").submit();
-}
-
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover(); 
-});
-
 
 // $(document).ready(function(){
 //   $(".alert-danger" ).fadeOut(5000)

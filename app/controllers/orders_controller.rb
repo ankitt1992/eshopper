@@ -24,7 +24,6 @@ class OrdersController < ApplicationController
 
 
   def create
-    binding.pry
     @order = current_user.orders.find_by(status: "pending")
     if @order.present?
       if @order.update(grand_total: params[:order][:grand_total], shipping_charges: params[:order][:shipping_charges], discount_amount: params[:order][:discount_amount])
@@ -84,7 +83,7 @@ class OrdersController < ApplicationController
       end
       @transaction = PaymentTransaction.create(order_id: @order.id, stripe_token: params[:stripeToken], stripe_email: params[:stripeEmail], stripe_token_type: params[:stripeTokenType], amount: @amount, paid: charge[:paid], charge_id: charge[:id], refunded: charge[:refunded])
       current_user.cart_items.destroy_all
-      OrderMailer.order_email(current_user,@amount, @order.id, @order.created_at).deliver_now
+      OrderMailer.order_email(current_user, @order).deliver_now
     end
 
     redirect_to order_path(params[:id])
@@ -113,6 +112,6 @@ class OrdersController < ApplicationController
     
   private
   def order_params
-		params.require(:order).permit(:address_id, :status, :grand_total)
+		params.require(:order).permit(:address_id, :status, :grand_total, :shipping_charges, :discount_amount)
 	end
 end

@@ -55,7 +55,7 @@ class CartItemsController < ApplicationController
   end
 
   def check_out
-    @address= Address.new
+    @address= current_user.addresses.new
   end
 
   def review_and_payment

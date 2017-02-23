@@ -1,4 +1,17 @@
 <% address_type ||= 'bill_to' %>
+
+<% if @address.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+    <ul>
+    <% @address.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="form <%=address_type %>_form">
   <%= f.email_field :email, placeholder: 'Email*',value: current_user.email,id: "#{address_type}_email", required: "required" %>
   <%= f.text_field :first_name, placeholder: "First Name *",value: current_user.first_name,  id: "#{address_type}_first_name" , required: "required"%>

@@ -20,7 +20,7 @@
           <%= f.hidden_field :address_id, value: params[:address_id]%>
           <%= f.hidden_field :status, value: "pending"%>
           <%= f.hidden_field :grand_total, value: @grand_total%>
-          <%= f.hidden_field :shipping_charges, value: @shipping_charges%>
+          <%= f.hidden_field :shipping_charges, value: @shipping_cost%>
           <%= f.hidden_field :discount_amount, value: @discount_amount%>
           <%= link_to '<< Continue shopping >>', root_url, class:"btn btn-primary"%>
           <%= f.submit "Continue to pay", class: "btn btn-primary" %>
