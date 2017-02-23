@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :contacts, only: [:index, :create, :update]
+  resources :contacts, only: [:index, :show, :new, :create, :update]
   resources :wishlists
   resources :order_items
   resources :orders do 
