@@ -14,7 +14,7 @@
 
       <div class="shopper-informations ">
         <div class="add_address">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add new address</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">Add new address</button>
         </div>
         <div class="row address_exist">
           <% if current_user.addresses.where(status: 'active').present? %>
@@ -43,7 +43,7 @@
           <% end %>
         </div>
 
-        <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal fade" id="myModal2" role="dialog">
           <%= render 'modal_form'%>
         </div>  
       </div>

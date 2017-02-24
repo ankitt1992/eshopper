@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :contacts, only: [:index, :show, :new, :create, :update]
-  resources :wishlists
-  resources :order_items
-  resources :orders do 
+  resources :contacts, except: [:edit, :destroy]
+  resources :wishlists, only: [:index, :create, :destroy]
+  resources :brands, only: [:index]
+  resources :products, only: [:show]
+  resources :cart_items, except: [:new, :edit, :show]
+  resources :addresses, only: [:edit, :create, :update]
+  resources :orders, except: [:new, :edit, :destroy, :update] do 
     get :payment, on: :member
     post :create_charges, on: :member
     post :refund, on: :member
@@ -12,30 +15,23 @@ Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  # devise_for :users
-  # get 'home/index'
-  #get '/categories/:category_id/brands/*id' => "brands#show"
   resources :categories do 
     resources :brands, only: [:show]
   end
 
-  resources :brands, only: [:index]
-  # resources :brands, only: [:show] 
-  resources :products, only: [:show]
-  resources :cart_items
-  resources :addresses
-  # resource :cart, only: [:show]
-  # resources :order_items, only: [:create, :update, :destroy]
   get '/check_outs', to: 'cart_items#check_out'
   get '/review_and_payment', to: 'cart_items#review_and_payment'
   post '/apply_coupon', to: 'cart_items#apply_coupon'
   get '/remove_coupon', to: 'cart_items#remove_coupon'
 
-  resources :charges
   get '*unmatched_route', to: 'application#routing_error_response'
 
   root 'home#index'
 
+  # devise_for :users
+  # get 'home/index'
+  #get '/categories/:category_id/brands/*id' => "brands#show"
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"

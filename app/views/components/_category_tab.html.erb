@@ -14,37 +14,36 @@
     </div>
   <% end %>
 
-  <div class="">
-  <%if @category.present? %>
-      <div class="" >
+  <div>
+    <%if @category.present? %>
+      <div>
         <% if @products.present? %>
-            <% @products.each do |product|%>
-              <div class="col-sm-3">
-                <div class="product-image-wrapper product_style">
-                  <div class="single-products">
-                    <div id="wishlist-status-<%= product.id%>">
-                      <%= render partial: 'wishlists/wishlist', locals:{product: product}%>
-                    </div>
-                    <div class="productinfo text-center">
-                      <%= link_to product_path(product) do %>
-                        <%if product.pictures.present?%>
-                          <div class="image-width">
-                            <%= image_tag product.pictures.first.image.product.url%>
-                          </div>
-                        <% end %>
-                          <h2>&#8377; <%= product.price%></h2>
-                          <p class="product_name_height"><%= product.name%></p>
+          <% @products.each do |product|%>
+            <div class="col-sm-3">
+              <div class="product-image-wrapper product_style">
+                <div class="single-products">
+                  <div id="wishlist-status-<%= product.id%>">
+                    <%= render partial: 'wishlists/wishlist', locals:{product: product}%>
+                  </div>
+                  <div class="productinfo text-center">
+                    <%= link_to product_path(product) do %>
+                      <%if product.pictures.present?%>
+                        <div class="image-width">
+                          <%= image_tag product.pictures.first.image.product.url%>
+                        </div>
                       <% end %>
-                      
-                      <div id="product-cart-status-<%= product.id%>">
-                        <%= render partial:'/cart_items/product_cart_status', locals:{product: product}%>
-                      </div>
+                        <h2>&#8377; <%= product.price%></h2>
+                        <p class="product_name_height"><%= product.name%></p>
+                    <% end %>
+                    
+                    <div id="product-cart-status-<%= product.id%>">
+                      <%= render partial:'/cart_items/product_cart_status', locals:{product: product}%>
                     </div>
                   </div>
                 </div>
               </div>
-            <% end %>
-          <%# end %> 
+            </div>
+          <% end %>
         <% else %>
           <div>
             <table class="table">
@@ -57,7 +56,6 @@
           </div>
         <% end %>
       </div>
-    <%# end %>
-  <% end %>
+    <% end %>
   </div>
 </div><!--/category-tab-->

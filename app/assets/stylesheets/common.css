@@ -123,6 +123,7 @@
 }
 .address_panel{
   border: 1px solid #ddd;
+  min-height: 350px !important;
 }
 /*.social-share-button-facebook {
   display: inline-block;

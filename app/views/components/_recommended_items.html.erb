@@ -14,11 +14,9 @@
                     <% if recommended_product.pictures.present?%>
                       <%= image_tag recommended_product.pictures.first.image.url, width: "150px", height: "220px"%>
                     <% end %>
-                    <!-- <img src="/assets/home/recommend1.jpg" alt="" /> -->
                     <h2>&#8377; <%= recommended_product.price%></h2>
                     <p><%= recommended_product.name%></p>
                   <% end %>
-                  <!-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
                   <div id="product-cart-status-<%= recommended_product.id%>">
                     <%= render partial:'/cart_items/product_cart_status', locals:{product: recommended_product}%>
                   </div>

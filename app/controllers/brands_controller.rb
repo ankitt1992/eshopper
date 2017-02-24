@@ -1,5 +1,5 @@
 class BrandsController < ApplicationController
-  before_action :set_brand, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_brand, only: [:index, :show]
   before_action :initialize_cart_item, only: [:index, :show]
 
   def index
