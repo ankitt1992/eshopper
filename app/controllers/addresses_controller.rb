@@ -6,39 +6,27 @@ class AddressesController < ApplicationController
     respond_to do |format|
       if @address.save
         format.html { redirect_to check_outs_path, notice: 'Address was successfully created.' }
-        format.json { render :show, status: :created, location: @address }
         format.js
       else
-        format.html { render :new }
-        format.json { render json: @address.errors, status: :unprocessable_entity }
         format.js
       end
     end
   end
 
   def update
-    if params[:status] == "delete"
-      @address.update(status: 'inactive')
-      @address.save
-      redirect_to check_outs_path, notice: 'Address was successfully deleted' 
-    else
-      respond_to do |format|
-        if @address.update(address_params)
-          format.html { redirect_to check_outs_path, notice: 'Address was successfully updated.' }
-          format.json { render :show, status: :ok, location: @address }
-          format.js
-        else
-          format.html { render :edit }
-          format.json { render json: @address.errors, status: :unprocessable_entity }
-          format.js
-        end
+    respond_to do |format|
+      if @address.update(address_params)
+        format.html { redirect_to check_outs_path, notice: 'Address was successfully updated.' }
+        format.js
+      else
+        format.js
       end
     end
   end
 
   private
     def set_address
-      @address = current_user.addresses.find(params[:id])
+      @address = Address.find(params[:id])
     end
 
     def address_params

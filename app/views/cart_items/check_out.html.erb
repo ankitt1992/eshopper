@@ -34,7 +34,7 @@
                   <%= link_to edit_address_path(address), class:"btn btn-default ",remote: true do %>
                   <i class="fa fa-edit"> Edit</i>
                   <% end %>
-                  <%= link_to address_path(address, status: 'delete'), method: :put ,class:" address-delete-btn btn btn-default",data: {confirm: 'Are you sure?'} do %>
+                  <%= link_to address_path(address, address: {status: 'inactive'}), method: :put ,class:" address-delete-btn btn btn-default",data: {confirm: 'Are you sure?'} do %>
                   <i class="fa fa-trash"> Delete</i>
                   <% end %>
                 </p>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'report/order_sale'
+
   resources :contacts, except: [:edit, :destroy]
   resources :wishlists, only: [:index, :create, :destroy]
   resources :brands, only: [:index]

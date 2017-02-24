@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @categories = Category.where(parent_id: nil)
+    @categories = Category.parent_categories
     @cart_item = CartItem.new
     if params[:subcategory_id].present?
       @subcategory = Category.find(params['subcategory_id'])

@@ -3,7 +3,8 @@ class BrandsController < ApplicationController
   before_action :initialize_cart_item, only: [:index, :show]
 
   def index
-    @categories = Category.where(parent_id: nil)
+    @categories = Category.parent_categories
+    binding.pry
     @category = Category.new
     @products = @brand.products
   end
