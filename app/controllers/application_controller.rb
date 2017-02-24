@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_order
   before_filter :set_brand
 
-
-
   rescue_from ActionController::RoutingError, with: :routing_error_response
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found_response
@@ -42,6 +40,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_brand
-    @brands = Brand.where(status: true).all
+    @brands = Brand.where(status: true)
   end
 end

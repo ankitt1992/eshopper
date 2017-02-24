@@ -4,8 +4,8 @@ class OrdersController < ApplicationController
   def index
     if user_signed_in?
       @cart_items = current_user.cart_items
+      @orders = current_user.orders.where('status =? or status=?', "successfull","cancelled").order('created_at DESC')
     end
-    @orders = current_user.orders.where('status =? or status=?', "successfull","cancelled").order('created_at DESC')
   end
 
   def show

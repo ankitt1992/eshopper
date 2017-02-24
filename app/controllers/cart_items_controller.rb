@@ -1,6 +1,6 @@
 class CartItemsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_current_user_cart_items, only: [:index, :create]
+  before_action :set_current_user_cart_items, only: [:index, :create, :destroy, :review_and_payment]
   before_action :set_cart_item, only: [:update, :destroy]
   before_action :set_cart_item_detail, only: [:index, :check_out, :review_and_payment]
 
@@ -10,11 +10,9 @@ class CartItemsController < ApplicationController
     respond_to do |format|
       if @cart_item.save
         format.html { redirect_to cart_items_path, notice: 'Item was successfully added.' }
-        format.json { render :show, status: :created, location: @cart_item }
         format.js
       else
-        format.html { render :new }
-        format.json { render json: @cart_item.errors, status: :unprocessable_entity }
+        format.html { redirect_to root_url, notice: 'Item not added'}
       end
     end
   end
@@ -27,29 +25,24 @@ class CartItemsController < ApplicationController
     elsif params[:cart_item][:quantity].to_i > 0
       @cart_item.quantity = params[:cart_item][:quantity]
     end
-    @cart_item.save
     set_cart_item_detail
 
     respond_to do |format|
       if @cart_item.update(cart_update_params)
         format.html { redirect_to cart_items_path, notice: 'Cart item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @cart_item }
         format.js
       else
-        format.html { render :edit }
-        format.json { render json: @cart_item.errors, status: :unprocessable_entity }
+        format.html { redirect_to root_url, notice: 'Item not updated' }
       end
     end
   end
 
   def destroy
-    @cart_items = current_user.cart_items.all
     @cart_item.destroy
     set_cart_item_detail
 
     respond_to do |format|
-      format.html { redirect_to cart_items_url, notice: 'Cart item was successfully removed.' }
-      format.json { head :no_content }
+      format.html { redirect_to cart_items_path, notice: 'Cart item was successfully removed.' }
       format.js
     end
   end
@@ -58,14 +51,6 @@ class CartItemsController < ApplicationController
     @address= current_user.addresses.new
   end
 
-  def review_and_payment
-    @cart_items = current_user.cart_items
-    if @cart_items.present? 
-      @order= current_user.orders.new
-    else
-      redirect_to root_url 
-    end
-  end
 
   def apply_coupon
     if params[:code].present?
@@ -100,8 +85,6 @@ class CartItemsController < ApplicationController
       end
     end
   end
-    # redirect_to cart_items_path
-    
 
   def remove_coupon
     if session[:coupon].present?
@@ -114,6 +97,14 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def review_and_payment
+    if @cart_items.present? 
+      @order= current_user.orders.new
+    else
+      redirect_to root_url 
+    end
+  end
+  
   private
     def set_cart_item
       @cart_item = CartItem.find(params[:id])
@@ -132,11 +123,11 @@ class CartItemsController < ApplicationController
     end
 
     def set_cart_item_detail
-      val = current_user.cart_items.calculate_sum(session[:coupon])
-      @cart_items_total = val[0]
-      @vat = val[1]
-      @shipping_cost = val[2]
-      @grand_total = val[3]
-      @discount_amount = val[4]
+      cart_item_values = current_user.cart_items.calculate_sum(session[:coupon])
+      @cart_items_total = cart_item_values[0]
+      @vat = cart_item_values[1]
+      @shipping_cost = cart_item_values[2]
+      @grand_total = cart_item_values[3]
+      @discount_amount = cart_item_values[4]
     end
 end

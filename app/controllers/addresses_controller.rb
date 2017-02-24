@@ -17,7 +17,6 @@ class AddressesController < ApplicationController
   end
 
   def update
-    @address = Address.find(params[:id])
     if params[:status] == "delete"
       @address.update(status: 'inactive')
       @address.save
@@ -27,19 +26,13 @@ class AddressesController < ApplicationController
         if @address.update(address_params)
           format.html { redirect_to check_outs_path, notice: 'Address was successfully updated.' }
           format.json { render :show, status: :ok, location: @address }
+          format.js
         else
           format.html { render :edit }
           format.json { render json: @address.errors, status: :unprocessable_entity }
+          format.js
         end
       end
-    end
-  end
-
-  def destroy
-    @address.destroy
-    respond_to do |format|
-      format.html { redirect_to check_outs_path, notice: 'Address was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
