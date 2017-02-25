@@ -5,8 +5,7 @@ class Order < ActiveRecord::Base
   has_one :payment_transaction
   belongs_to :coupon
 
-
-  
+  scope :order_status, -> {where('status =? or status=?', "successfull","cancelled").order('created_at DESC')}
   # has_many :addresses
 
   # before_save :update_sub_total

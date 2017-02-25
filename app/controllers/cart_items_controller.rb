@@ -5,7 +5,7 @@ class CartItemsController < ApplicationController
   before_action :set_cart_item_detail, only: [:index, :check_out, :review_and_payment]
 
   def create
-    @cart_item = current_user.cart_items.find_or_initialize_by(cart_item_params)
+    @cart_item = @cart_items.find_or_initialize_by(cart_item_params)
     @product = @cart_item.product
     respond_to do |format|
       if @cart_item.save
@@ -25,10 +25,10 @@ class CartItemsController < ApplicationController
     elsif params[:cart_item][:quantity].to_i > 0
       @cart_item.quantity = params[:cart_item][:quantity]
     end
-    set_cart_item_detail
 
     respond_to do |format|
       if @cart_item.update(cart_update_params)
+        set_cart_item_detail
         format.html { redirect_to cart_items_path, notice: 'Cart item was successfully updated.' }
         format.js
       else
@@ -54,9 +54,10 @@ class CartItemsController < ApplicationController
 
   def apply_coupon
     if params[:code].present?
-      if Coupon.pluck(:code).include?(params[:code])
-        @coupon = Coupon.find_by(code: params[:code])
-        unless UsedCoupon.find_by(coupon_id: @coupon.id, user_id: current_user.id).present?
+      @coupon = Coupon.find_by(code: params[:code])
+      if @coupon.present?
+        @used_coupon = current_user.used_coupons.find_by(coupon_id: @coupon.id)
+        unless @used_coupon.present?
           session[:coupon] = params[:code]
           @coupon = Coupon.find_by(code: session[:coupon])
           set_cart_item_detail
@@ -67,7 +68,7 @@ class CartItemsController < ApplicationController
           end
         else
           set_cart_item_detail
-          @coupon_invalid_message = "Coupon already used "
+          @coupon_invalid_message = "Coupon already used"
         end
       else
         set_cart_item_detail
@@ -110,10 +111,6 @@ class CartItemsController < ApplicationController
       @cart_item = CartItem.find(params[:id])
     end
 
-    def set_current_user_cart_items
-      @cart_items = current_user.cart_items
-    end
-
     def cart_item_params
       params.require(:cart_item).permit(:quantity, :product_id)
     end
@@ -124,10 +121,10 @@ class CartItemsController < ApplicationController
 
     def set_cart_item_detail
       cart_item_values = current_user.cart_items.calculate_sum(session[:coupon])
-      @cart_items_total = cart_item_values[0]
-      @vat = cart_item_values[1]
-      @shipping_cost = cart_item_values[2]
-      @grand_total = cart_item_values[3]
-      @discount_amount = cart_item_values[4]
+      @cart_items_total = cart_item_values[:cart_items_total]
+      @vat = cart_item_values[:vat]
+      @shipping_cost = cart_item_values[:shipping_cost]
+      @grand_total = cart_item_values[:grand_total]
+      @discount_amount = cart_item_values[:discount_amount]
     end
 end

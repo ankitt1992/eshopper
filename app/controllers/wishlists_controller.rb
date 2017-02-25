@@ -2,10 +2,10 @@ class WishlistsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_wishlist, only: [:destroy]
   before_action :intialize_current_user_wishlist, only: [:index, :create, :destroy]
+  before_action :set_current_user_cart_items, only: [:index]
 
   def index
     @cart_item = current_user.cart_items.new
-    @cart_items = current_user.cart_items
   end
 
   def create

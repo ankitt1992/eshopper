@@ -1,4 +1,8 @@
 class HomeController < ApplicationController
+
+  before_action :set_brands
+  before_action :initialize_cart_item
+
   def index
     @banners = Banner.all
     @categories = Category.where(parent_id: nil)
@@ -7,7 +11,6 @@ class HomeController < ApplicationController
       @products = @category.products
     end
 
-    @cart_item = CartItem.new
     if user_signed_in?
       @wishlist = current_user.wishlists.new
       @wishlists = current_user.wishlists

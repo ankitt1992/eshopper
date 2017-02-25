@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :update]
 
   def index
-    @contacts = Contact.all.order('created_at DESC')
+    @contacts = Contact.order('created_at DESC')
   end
 
   def new

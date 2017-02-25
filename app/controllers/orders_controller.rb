@@ -4,17 +4,15 @@ class OrdersController < ApplicationController
   before_action :set_current_user_order, only: [:payment, :refund, :track, :create_charges]
 
   def index
-    if user_signed_in?
-      @orders = current_user.orders.where('status =? or status=?', "successfull","cancelled").order('created_at DESC')
-    end
+    @orders = current_user.orders.order_status
   end
 
   def show
-    @order = Order.find(params[:id])
-    if current_user.orders.pluck('id').include?(@order.id)
+    @order = current_user.orders.find(params[:id])
+    if @order.present?
       @order_items = @order.order_items
       @amount = @order.grand_total
-      @address = Address.find(@order.address_id)
+      @address = @order.address
     else
       redirect_to root_url, alert: "You are not authorized to see this record"
     end
@@ -23,15 +21,13 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.find_by(status: "pending")
     if @order.present?
-      if @order.update(grand_total: params[:order][:grand_total], shipping_charges: params[:order][:shipping_charges], discount_amount: params[:order][:discount_amount])
+      if @order.update(order_params)
         redirect_to payment_order_path(@order)
       end
     else
       @order = current_user.orders.new(order_params)
-      respond_to do |format|
-        if @order.save
-          format.html { redirect_to payment_order_path(@order)}
-        end
+      if @order.save
+        redirect_to payment_order_path(@order)
       end
     end
   end
@@ -67,7 +63,7 @@ class OrdersController < ApplicationController
         @coupon.save
       end
       @order.update(status: "successfull", track_status: "ordered", coupon_id: @coupon_id)
-      UsedCoupon.create(user_id: current_user.id, coupon_id: @coupon_id, order_id: @order.id)
+      current_user.used_coupons.create(coupon_id: @coupon_id, order_id: @order.id)
       session[:coupon] = nil
       @cart_items.each do |cart_item|
         @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
@@ -95,10 +91,6 @@ class OrdersController < ApplicationController
       end
     end
   end
-
-  # def track
-  #   @order = Order.find(params[:id])
-  # end
     
   private
   def order_params
@@ -106,9 +98,7 @@ class OrdersController < ApplicationController
 	end
 
   def set_current_user_cart_items
-    if user_signed_in?
-      @cart_items = current_user.cart_items
-    end
+    @cart_items = current_user.cart_items
   end
 
   def set_current_user_order

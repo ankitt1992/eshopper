@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :orders
   has_many :wishlists
+  has_many :used_coupons
 
   after_create :send_user_mail
   

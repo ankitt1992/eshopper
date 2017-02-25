@@ -1,9 +1,11 @@
 class CategoriesController < ApplicationController
 
+  before_action :set_brands
+  before_action :initialize_cart_item
+
   def show
     @category = Category.find(params[:id])
     @categories = Category.parent_categories
-    @cart_item = CartItem.new
     if params[:subcategory_id].present?
       @subcategory = Category.find(params['subcategory_id'])
       @products = @subcategory.products
