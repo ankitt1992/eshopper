@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_before_filter :verify_authenticity_token  
   before_action :configure_permitted_parameters, if: :devise_controller?
-  helper_method :current_order
-  before_filter :set_brand
 
   rescue_from ActionController::RoutingError, with: :routing_error_response
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response

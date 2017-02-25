@@ -4,7 +4,6 @@ class BrandsController < ApplicationController
 
   def index
     @categories = Category.parent_categories
-    binding.pry
     @category = Category.new
     @products = @brand.products
   end

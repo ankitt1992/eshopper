@@ -14,7 +14,6 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        AdminMailer.contact_email(@contact).deliver_now
         format.html { redirect_to @contact }
       else
         format.html { render :new }
@@ -25,7 +24,6 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        UserMailer.reply_email(@contact).deliver
         format.html { redirect_to contacts_path, notice: 'Email has been sent to the user.' }
       else
         format.html { render :edit }
