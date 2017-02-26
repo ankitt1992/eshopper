@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
-  get 'report/order_report'
-
-  get 'report/coupon_report'
-
-  get 'report/user_report'
-
-  get 'report/order_sale'
-
+  
   resources :contacts, except: [:edit, :destroy]
   resources :wishlists, only: [:index, :create, :destroy]
   resources :brands, only: [:index]
@@ -31,7 +24,10 @@ Rails.application.routes.draw do
   get '/review_and_payment', to: 'cart_items#review_and_payment'
   post '/apply_coupon', to: 'cart_items#apply_coupon'
   get '/remove_coupon', to: 'cart_items#remove_coupon'
-
+  get 'report/order_report'
+  get 'report/coupon_report'
+  get 'report/user_report'
+  get 'report/order_sale'
   get '*unmatched_route', to: 'application#routing_error_response'
 
   root 'home#index'
