@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'report/order_report'
+
+  get 'report/coupon_report'
+
+  get 'report/user_report'
+
   get 'report/order_sale'
 
   resources :contacts, except: [:edit, :destroy]
