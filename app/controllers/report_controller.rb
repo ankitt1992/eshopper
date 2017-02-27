@@ -4,8 +4,8 @@ class ReportController < ApplicationController
   end
 
   def order_report
-  	@orders_successful = Order.where(status: 'successfull').group_by { |t| t.created_at.strftime("%B/%Y") }
-  	@orders_cancelled = Order.where(status: 'cancelled').group_by { |t| t.created_at.strftime("%B/%Y") }
+  	@orders_successful = Order.successful
+  	@orders_cancelled = Order.cancelled
   	@months = @orders_successful.keys
   	@orders_count_success = []
     @orders_successful.each do |key, value|
