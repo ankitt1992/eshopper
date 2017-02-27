@@ -1,50 +1,38 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_current_user_cart_items,  only: [:index, :payment, :create_charges]
+  before_action :set_current_user_order, only: [:payment, :refund, :track, :create_charges]
 
   def index
-    if user_signed_in?
-      @cart_items = current_user.cart_items
-    end
-    @orders = current_user.orders.where('status =? or status=?', "successfull","cancelled").order('created_at DESC')
+    @orders = current_user.orders.order_status
   end
 
   def show
-    @order = Order.find(params[:id])
-    if current_user.orders.pluck('id').include?(@order.id)
+    @order = current_user.orders.find(params[:id])
+    if @order.present?
       @order_items = @order.order_items
       @amount = @order.grand_total
-      @address = Address.find(@order.address_id)
+      @address = @order.address
     else
       redirect_to root_url, alert: "You are not authorized to see this record"
     end
   end
 
-  def new
-  end
-
-
   def create
     @order = current_user.orders.find_by(status: "pending")
     if @order.present?
-      if @order.update(grand_total: params[:order][:grand_total], shipping_charges: params[:order][:shipping_charges], discount_amount: params[:order][:discount_amount])
+      if @order.update(order_params)
         redirect_to payment_order_path(@order)
       end
     else
       @order = current_user.orders.new(order_params)
-      respond_to do |format|
-        if @order.save
-          format.html { redirect_to payment_order_path(@order)}
-        end
+      if @order.save
+        redirect_to payment_order_path(@order)
       end
     end
   end
 
   def payment
-    if user_signed_in?
-      @cart_items = current_user.cart_items.all
-    end
-
-    @order = Order.find(params[:id])
     if @order.status=="successfull" 
       redirect_to root_url 
     else
@@ -55,6 +43,7 @@ class OrdersController < ApplicationController
 
   def create_charges
    @amount = (current_user.orders.last.grand_total * 100).to_i 
+   
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
       :source  => params[:stripeToken]
@@ -66,9 +55,7 @@ class OrdersController < ApplicationController
       :currency    => 'inr'
     )
     @amount = charge[:amount].to_f/100
-    @order = Order.find(params[:id])
     if params[:stripeToken].present?
-      @cart_items = current_user.cart_items
       if session[:coupon].present?
         @coupon = Coupon.find_by(code: session[:coupon])
         @coupon.no_of_uses = @coupon.no_of_uses.to_i + 1
@@ -76,13 +63,13 @@ class OrdersController < ApplicationController
         @coupon.save
       end
       @order.update(status: "successfull", track_status: "ordered", coupon_id: @coupon_id)
-      UsedCoupon.create(user_id: current_user.id, coupon_id: @coupon_id, order_id: @order.id)
+      current_user.used_coupons.create(coupon_id: @coupon_id, order_id: @order.id)
       session[:coupon] = nil
       @cart_items.each do |cart_item|
         @order_item = OrderItem.create(order_id: params[:id], quantity: cart_item.quantity, sub_total: cart_item.total, product_id: cart_item.product_id)
       end
       @transaction = PaymentTransaction.create(order_id: @order.id, stripe_token: params[:stripeToken], stripe_email: params[:stripeEmail], stripe_token_type: params[:stripeTokenType], amount: @amount, paid: charge[:paid], charge_id: charge[:id], refunded: charge[:refunded])
-      current_user.cart_items.destroy_all
+      @cart_items.destroy_all
       OrderMailer.order_email(current_user, @order).deliver_now
     end
 
@@ -93,7 +80,6 @@ class OrdersController < ApplicationController
   end
 
   def refund
-    @order = Order.find(params[:id])
     @transaction = @order.payment_transaction
     @payment_charge = @transaction.charge_id
     charge = Stripe::Charge.retrieve(@payment_charge)
@@ -105,13 +91,17 @@ class OrdersController < ApplicationController
       end
     end
   end
-
-  def track
-    @order = Order.find(params[:id])
-  end
     
   private
   def order_params
 		params.require(:order).permit(:address_id, :status, :grand_total, :shipping_charges, :discount_amount)
 	end
+
+  def set_current_user_cart_items
+    @cart_items = current_user.cart_items
+  end
+
+  def set_current_user_order
+    @order = current_user.orders.find(params[:id])
+  end
 end

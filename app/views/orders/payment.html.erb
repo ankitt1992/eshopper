@@ -1,23 +1,22 @@
+<div class="payment-button">
+  <center>
+    <%= form_tag create_charges_order_path do %>
+      <article>
+        <% if flash[:error].present? %>
+          <div id="error_explanation">
+            <p><%= flash[:error] %></p>
+          </div>
+        <% end %>
+        <label class="amount">
+          <span>Amount:&#8377; <%= @order.grand_total.to_f%></span>
+        </label>
+      </article>
 
-  <div class="payment-button">
-    <center>
-      <%= form_tag create_charges_order_path do %>
-        <article>
-          <% if flash[:error].present? %>
-            <div id="error_explanation">
-              <p><%= flash[:error] %></p>
-            </div>
-          <% end %>
-          <label class="amount">
-            <span>Amount:&#8377; <%= @order.grand_total.to_f%></span>
-          </label>
-        </article>
-
-        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                data-description="A month's subscription"
-                data-amount=<%= @grand_total%>
-                data-locale="auto"></script>
-      <% end %>
-    </center>
-  </div>
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+              data-description="A month's subscription"
+              data-amount=<%= @grand_total%>
+              data-locale="auto"></script>
+    <% end %>
+  </center>
+</div>

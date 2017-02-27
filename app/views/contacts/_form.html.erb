@@ -11,8 +11,6 @@
     </div>
   <% end %>
 
-
-
   <div class="form-group col-md-6">
     <%= f.text_field :name, class: "form-control", value: "#{current_user.first_name if  current_user.present?}", placeholder: "Name", required: "required" %>
   </div>

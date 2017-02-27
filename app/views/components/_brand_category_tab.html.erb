@@ -12,8 +12,7 @@
   </div>
 
   <div class="">
-  <%if @category.present? %>
-    <%# navigation_list.each_with_index do |subcategory, i|%>
+    <%if @category.present? %>
       <div class="col-sm-12" >
         <% if @products.present? %>
           <% @products.each do |product|%>
@@ -21,8 +20,8 @@
               <div class="product-image-wrapper product_style">
                 <div class="single-products">
                   <div id="wishlist-status-<%= product.id%>">
-                      <%= render partial: 'wishlists/wishlist', locals:{product: product}%>
-                    </div>
+                    <%= render partial: 'wishlists/wishlist', locals:{product: product}%>
+                  </div>
                   <div class="productinfo text-center">
                     <%= link_to product_path(product) do %>
                       <%if product.pictures.present?%>
@@ -44,7 +43,6 @@
           <h2>Product not available</h2>
         <% end %>
       </div>
-    <%# end %>
-  <% end %>
+    <% end %>
   </div>
 </div><!--/category-tab-->

@@ -15,6 +15,9 @@
             <div class="field">
               <%= f.text_field :first_name,placeholder: "First Name", autofocus: true,presence: true %>
             </div>
+            <div class="field">
+              <%= f.text_field :last_name,placeholder: "Last Name", autofocus: true,presence: true %>
+            </div>
 
             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
               <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

@@ -44,7 +44,6 @@
               <% else %>
                 <%= link_to '+', cart_item_path(cart_item, increase: 'increase'), method: :put, class: 'cart_quantity_up', remote:true %>
                 <%= form_for cart_item, method: :put,class:'form_class', remote: true do |f| %>
-                  <%#= f.hidden_field :cart_update, value: 'cart_update'%>
                   <%= f.text_field :quantity, size: 2, class:"cart_quantity_input", id: "cart-item-count-"+ cart_item.id.to_s ,:onchange=> " $(this.form).submit();"  %>
                     <% end %>
                   <%= link_to '-', cart_item_path(cart_item, decrease: 'decrease'), method: :put, class: 'cart_quantity_down', remote:true %>
@@ -101,6 +100,6 @@
           </td>
         </tr>
       <% end %>
-      <% end %>
     </tbody>
+  <% end %>
 </table>

@@ -123,6 +123,7 @@
 }
 .address_panel{
   border: 1px solid #ddd;
+  min-height: 350px !important;
 }
 /*.social-share-button-facebook {
   display: inline-block;
@@ -245,6 +246,10 @@
 .reply-field {
     background-color: white !important;
     width: 550px !important;
+}
+
+.btn-margin{
+  margin-bottom: 5px !important;
 }
 
 /*.wishlist-product-name{

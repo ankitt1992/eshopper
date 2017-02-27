@@ -1,0 +1,4 @@
+$('#myModal').html("<%= escape_javascript render(:partial => '/cart_items/modal_form') %>")
+<% unless @address.errors.present? %>
+  location.reload(true)
+<% end %>

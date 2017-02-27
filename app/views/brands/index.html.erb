@@ -5,7 +5,6 @@
         <%= render '/components/left_sidebar'%>
       </div>
 
-
       <div class="category-tab"><!--category-tab-->
         <% if @brand.present? %>
           <div class="col-sm-12">
@@ -17,9 +16,9 @@
           </div>
         <% end %>
 
-        <div class="">
+        <div>
         <%if @brand.present? %>
-          <div class="" >
+          <div>
             <% if @products.present? %>
               <% @products.each do |product|%>
                 <div class="col-sm-3">
@@ -47,14 +46,12 @@
                   </div>
                 </div>
               <% end %>
-              <%# end %> 
             <% else %>
               <div>
                 <h2><center>Product not available</center></h2>
               </div>
             <% end %>
           </div>
-          <%# end %>
         <% end %>
         </div>
       </div><!--/category-tab-->

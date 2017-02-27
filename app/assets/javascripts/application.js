@@ -16,6 +16,9 @@
 //= require bootstrap-sprockets
 //= require social-share-button
 //= require country_state_select
+//= require highcharts
+//= require data
+//= require drilldown
 //= require_tree .
 
 

@@ -9,6 +9,8 @@
 
     <h2>My Orders</h2>
 
+    <div class="order_charts" id="order_item_charts"></div>
+
     <div class="panel-group">
     <% if @orders.present? %>
       <% @orders.each do |order|%>
@@ -28,7 +30,7 @@
                   <p>Ship to</p>
                   <% if order.address.present?%>
                     <p><% @address1 = order.address.address1 %><% @address2 = order.address.address2 %><% @postal_code = order.address.postal_code %>
-                    <a href="#" title="<%= order.address.first_name %> <%= order.address.last_name %>" data-toggle="popover" data-trigger="hover" data-content= "<%= @address1%><%= @address2%><%= @postal_code%>" data-placement="bottom" ><%= order.address.first_name %> <%= order.address.last_name %></a>
+                    <a title="<%= order.address.first_name %> <%= order.address.last_name %>" data-toggle="popover" data-trigger="hover" data-content= "<%= @address1%><%= @address2%><%= @postal_code%>" data-placement="bottom" ><%= order.address.first_name %> <%= order.address.last_name %></a>
                     <i class="fa fa-sort-down"></i></p>
                   <% end %>
                 </td>
@@ -68,7 +70,7 @@
 
           <div class="panel-body">
             <table class="table table-condensed">
-              <% order.order_items.each do |order_item| %>
+              <% order.order_items.each_with_index do |order_item, i| %>
                 <tbody>
                   <tr>
                     <td class="col-sm-2"><%= image_tag order_item.product.pictures.first.image.preview.url%>
@@ -79,7 +81,9 @@
                     </td>
                     <td class="col-sm-2">
                       <div>
+                      <% if i==0 %>
                         <%= link_to "Track Package", track_order_path(order), class: 'btn btn-primary track-btn' %>
+                      <% end %>
                       </div>
                     </td>
                   </tr>

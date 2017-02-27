@@ -1,27 +1,20 @@
 class HomeController < ApplicationController
+
+  before_action :set_brands
+  before_action :initialize_cart_item
+
   def index
     @banners = Banner.all
-    # @category = nil
-    # binding.pry
-    # @categories = Category.find(:all, :conditions => {:parent_id => nil } )
-    @categories = Category.all.where(parent_id: nil)
+    @categories = Category.where(parent_id: nil)
     @category = Category.first
     if @category.present?
       @products = @category.products
-      # @subcategory = @category.subcategories.first
-      # if @subcategory.present?
-      #   @products = @subcategory.products.limit(8)
-      # end
     end
-
-    @cart_item = CartItem.new
-    @wishlist = Wishlist.new
 
     if user_signed_in?
-      @cart_items = current_user.cart_items
+      @wishlist = current_user.wishlists.new
       @wishlists = current_user.wishlists
+      @cart_items = current_user.cart_items
     end
-
-    @brands = Brand.where(status: true).all
   end
 end

@@ -1,0 +1,59 @@
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li><%=link_to 'Report', report_index_path%></li>
+        <li class="active">User Registered Report</li>
+      </ol>
+    </div>
+    <div id="user_chart"></div>
+
+    <script type="text/javascript">
+    	Highcharts.chart('user_chart', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Monthly Average User Registeration'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+            <% @months_user.each_with_index do |month, i|%>
+                "<%= month %>",
+            <% end %>
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Number of User registered'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Users Count',
+            data: <%= @users_count%>
+
+        }]
+    });
+    </script>
+  </div>
+</section>

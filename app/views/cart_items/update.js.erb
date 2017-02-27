@@ -1,16 +1,13 @@
-console.log(<%= @vat%>)
 $('#cart-item-count-' + <%= @cart_item.id %>).val(<%= @cart_item.quantity%>)
 $('#cart_item_total_'+<%= @cart_item.id %>).html('&#8377;'+ <%= @cart_item.total %>.toFixed(1))
 $('.total_area').html("<%= escape_javascript render(:partial => '/cart_items/calculate_cart_items') %>")
-
-// $('#vat').html('&#8377; <%= @vat%>')
-// $('#cart_sub_total').html('&#8377; <%= @cart_items_total%>')
-// $('#cart_total').html('&#8377; <%= @grand_total%>')
-
 <% if @cart_items_total < 500 %>
   $('#shipping-cost').html('&#8377; <%= @shipping_cost%>')
 <% else %>
   $('#shipping-cost').html('Free')
 <% end %>
 
+// $('#vat').html('&#8377; <%= @vat%>')
+// $('#cart_sub_total').html('&#8377; <%= @cart_items_total%>')
+// $('#cart_total').html('&#8377; <%= @grand_total%>')
 
