@@ -19,15 +19,14 @@ Rails.application.routes.draw do
   resources :categories do 
     resources :brands, only: [:show]
   end
-
   get '/check_outs', to: 'cart_items#check_out'
   get '/review_and_payment', to: 'cart_items#review_and_payment'
   post '/apply_coupon', to: 'cart_items#apply_coupon'
   get '/remove_coupon', to: 'cart_items#remove_coupon'
+  get 'report/index'
   get 'report/order_report'
   get 'report/coupon_report'
   get 'report/user_report'
-  get 'report/order_sale'
   get '*unmatched_route', to: 'application#routing_error_response'
 
   root 'home#index'

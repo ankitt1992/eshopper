@@ -9,6 +9,11 @@
               <li><a href="#"><i class="fa fa-envelope"></i> info@domain.com</a></li>
               <li><%= link_to 'Contact us', new_contact_path%></li>
               <li><%= link_to 'Admin', '/admin'%></li>
+              <li>
+                <%if admin_signed_in?%>
+                  <%= link_to 'Report', report_index_path %>
+                <% end %>
+              </li>
             </ul>
           </div>
         </div>

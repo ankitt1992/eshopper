@@ -1,54 +1,63 @@
-<div class="container">
-	<div id="orders_chart"></div>
-</div>
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li><%=link_to 'Report', report_index_path%></li>
+        <li class="active">Order Report</li>
+      </ol>
+    </div>
+    <div id="orders_chart"></div>
 
-<script type="text/javascript">
-	Highcharts.chart('orders_chart', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Monthly Average Order Report'
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: [
-        <% @months.each_with_index do |month, i|%>
-            "<%= month %>",
-        <% end %>
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
+    <script type="text/javascript">
+    	Highcharts.chart('orders_chart', {
+        chart: {
+            type: 'column'
+        },
         title: {
-            text: 'Number of Orders'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Order Successfull',
-        data: <%= @orders_count_success%>
+            text: 'Monthly Average Order Report'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+            <% @months.each_with_index do |month, i|%>
+                "<%= month %>",
+            <% end %>
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Number of Orders'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Order Successfull',
+            data: <%= @orders_count_success%>
 
-    }, {
-        name: 'Order Cancelled',
-        data: <%= @orders_count_cancel%>
+        }, {
+            name: 'Order Cancelled',
+            data: <%= @orders_count_cancel%>
 
-    }]
-});
-</script>
+        }]
+    });
+    </script>
+  </div>
+</section>

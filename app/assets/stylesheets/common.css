@@ -248,6 +248,10 @@
     width: 550px !important;
 }
 
+.btn-margin{
+  margin-bottom: 5px !important;
+}
+
 /*.wishlist-product-name{
   color: #0066c0 !important;
   background-color: transparent;

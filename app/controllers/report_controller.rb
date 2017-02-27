@@ -1,4 +1,8 @@
 class ReportController < ApplicationController
+  before_action :authenticate_admin!
+  def index
+  end
+
   def order_report
   	@orders_successful = Order.where(status: 'successfull').group_by { |t| t.created_at.strftime("%B/%Y") }
   	@orders_cancelled = Order.where(status: 'cancelled').group_by { |t| t.created_at.strftime("%B/%Y") }

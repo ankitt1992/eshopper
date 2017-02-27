@@ -1,50 +1,58 @@
-<div class="container">
-	<div id="used_coupon_chart"></div>
-</div>
-
-<script type="text/javascript">
-	Highcharts.chart('used_coupon_chart', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Monthly Used Coupons Report'
-    },
-    subtitle: {
-        text: ''
-    },
-    xAxis: {
-        categories: [
-        <% @coupon_months.each_with_index do |month, i|%>
-            "<%= month %>",
-        <% end %>
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
+<section id="cart_items">
+  <div class="container">
+    <div class="breadcrumbs">
+      <ol class="breadcrumb">
+        <li><%=link_to 'Home', root_url%></li>
+        <li><%=link_to 'Report', report_index_path%></li>
+        <li class="active">Report</li>
+      </ol>
+    </div>
+    <div id="used_coupon_chart"></div>
+    <script type="text/javascript">
+    	Highcharts.chart('used_coupon_chart', {
+        chart: {
+            type: 'column'
+        },
         title: {
-            text: 'Number of Coupons used'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y}</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Coupon Used',
-        data: <%= @used_coupons_count%>
+            text: 'Monthly Used Coupons Report'
+        },
+        subtitle: {
+            text: ''
+        },
+        xAxis: {
+            categories: [
+            <% @coupon_months.each_with_index do |month, i|%>
+                "<%= month %>",
+            <% end %>
+            ],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Number of Coupons used'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Coupon Used',
+            data: <%= @used_coupons_count%>
 
-    }]
-});
-</script>
+        }]
+    });
+    </script>
+  </div>
+</section>
